@@ -23,14 +23,8 @@
     </ul>
 </header>
 
-<div th:if="${param.error}" class="text-center">
-    Неверный логин или пароль.
-</div>
-<div th:if="${param.logout}" class="text-center">
-    Вы вышли из аккаунта.
-</div>
 <div class="container text-center" style="width:20rem;">
-<form th:action="@{/login}" method="post">
+<form th:action="@{/registration}" method="post">
     <h1 class="h3 mb-3 fw-normal ">Пожалуйста, войдите</h1>
 
     <div class="form-floating">
@@ -42,9 +36,9 @@
         <label for="floatingPassword">Пароль</label>
     </div>
     <div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
     </div>
-    <a href="./registration" class="nav-link px-2 link-secondary">Зарегистрироваться</a>
+
     <p class="mt-5 mb-3 text-muted">© 2022 AMIR company, Inc</p>
 </form>
 </div>
