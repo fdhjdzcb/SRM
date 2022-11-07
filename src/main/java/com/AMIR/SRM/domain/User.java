@@ -4,20 +4,20 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "usr")
+@Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String username;
-    private String email;
     private String password;
-    private boolean active;
+    private int role_id;
+    /*private boolean active;*/
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
-    @CollectionTable(name="user_role", joinColumns=@JoinColumn(name = "user_id"))
+    @CollectionTable(name="roles", joinColumns=@JoinColumn(name = "role_id"))
     @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+    private Set<Role> role_name;
 
     public long getId() {
         return id;
@@ -35,14 +35,6 @@ public class User {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -51,19 +43,27 @@ public class User {
         this.password = password;
     }
 
-    public boolean isActive() {
+    public int getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(int role_id) {
+        this.role_id = role_id;
+    }
+
+    /*public boolean isActive() {
         return active;
     }
 
     public void setActive(boolean active) {
         this.active = active;
-    }
+    }*/
 
     public Set<Role> getRoles() {
-        return roles;
+        return role_name;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Set<Role> role_name) {
+        this.role_name = role_name;
     }
 }
