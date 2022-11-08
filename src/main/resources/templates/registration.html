@@ -20,15 +20,19 @@
 <div class="container text-center" style="width:20rem;">
 <form th:action="@{/registration}" method="post">
     <div th:if="${message}" class="text-center">
-        Пользователь с таким e-mail уже существует.
+        Пользователь с таким логином уже существует.
     </div>
     <h1 class="h3 mb-3 fw-normal ">Регистрация</h1>
     <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" name="username">
-        <label for="floatingInput">E-mail</label>
+        <input type="username" class="form-control" id="floatingInput" name="username" placeholder="username">
+        <label for="floatingInput">Логин</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="floatingPassword" name="password">
+        <input type="email" class="form-control" id="floatingInput2" name="email" placeholder="some@some.com">
+        <label for="floatingInput2">E-mail</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="password">
         <label for="floatingPassword">Пароль</label>
     </div>
     <div>
