@@ -11,8 +11,7 @@ public class User {
     private long id;
     private String username;
     private String password;
-    private int role_id;
-    /*private boolean active;*/
+    private boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
     @CollectionTable(name="roles", joinColumns=@JoinColumn(name = "role_id"))
@@ -43,21 +42,13 @@ public class User {
         this.password = password;
     }
 
-    public int getRole_id() {
-        return role_id;
-    }
-
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
-    }
-
-    /*public boolean isActive() {
+    public boolean isActive() {
         return active;
     }
 
     public void setActive(boolean active) {
         this.active = active;
-    }*/
+    }
 
     public Set<Role> getRoles() {
         return role_name;
