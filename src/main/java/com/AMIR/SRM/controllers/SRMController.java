@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class SRMController {
+
     @GetMapping("/srm/application")
-    public String first(Model model) {
+    public String application(Model model) {
         model.addAttribute("title", "Приложение");
-        return "application";
+        return "test";
     }
 }
