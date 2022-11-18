@@ -28,12 +28,14 @@ public class UserService implements UserDetailsService {
 
     public boolean addUser(User user) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
+        User mailFromDb = userRepo.findByEmail(user.getEmail());
 
-        if (userFromDb != null) {
+        if ((userFromDb != null) | (mailFromDb != null)) {
             return false;
         }
 
-        user.setActive(true);
+
+        user.setActive(false);
         user.setRoles(Collections.singleton(Role.USER));
         user.setActivationCode(UUID.randomUUID().toString());
 
@@ -46,7 +48,7 @@ public class UserService implements UserDetailsService {
                     user.getUsername(),
                     user.getActivationCode()
             );
-            mailSender.send(user.getEmail(), "Activation code", message);
+            mailSender.send(user.getEmail(), "Код активации", message);
         }
 
             return true;
@@ -60,6 +62,7 @@ public class UserService implements UserDetailsService {
         }
 
         user.setActivationCode(null);
+        user.setActive(true);
         userRepo.save(user);
 
         return true;
