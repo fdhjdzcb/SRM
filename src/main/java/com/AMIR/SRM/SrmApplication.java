@@ -2,8 +2,10 @@ package com.AMIR.SRM;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication
+
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class SrmApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SrmApplication.class, args);
