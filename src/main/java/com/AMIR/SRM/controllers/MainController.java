@@ -15,9 +15,13 @@ public class MainController {
 
     @GetMapping("/srm")
     public String srm(Model model) {
-
         model.addAttribute("title", "SRM");
         model.addAttribute("username", "username");
+        return "SRM/SRM";
+    }
+
+    @GetMapping("srm/orders")
+    public String orders(Model model){
         return "SRM/SRM";
     }
 
@@ -38,5 +42,4 @@ public class MainController {
         model.addAttribute("title", "Про нас");
         return "about";
     }
-
 }
