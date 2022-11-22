@@ -1,33 +1,62 @@
 package com.AMIR.SRM.controllers;
 
+import com.AMIR.SRM.domain.Order;
+import com.AMIR.SRM.repositories.OrderRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Date;
+import java.util.Map;
 
 @Controller
+@RequestMapping("srm/orders/")
 public class OrdersController {
-    @GetMapping("srm/orders/new_order")
+    @Autowired
+    private OrderRepo orderRepo;
+
+    @GetMapping("new_order")
     public String new_order(Model model){
         model.addAttribute("title", "Создание заказа");
         model.addAttribute("username", "username");
         return "SRM/orders/new_order";
     }
 
-    @GetMapping("srm/orders/current_orders")
+    /*@GetMapping
+    public String main(Map<String, Object> model){
+        Iterable<Order> orders = orderRepo.findAll();
+        model.put("orders", orders);
+
+        return "SRM/orders/new_order";
+    }*/
+
+    @PostMapping("new_order")
+    public String add(@RequestParam String product_name, @RequestParam String description, @RequestParam int max_price, @RequestParam int count, @RequestParam Date expected_date, Map<String, Object> model){
+        Order order = new Order(product_name, description, max_price, count, expected_date);
+        orderRepo.save(order);
+
+        return "SRM/orders/new_order";
+    }
+
+    @GetMapping("current_orders")
     public String current_orders(Model model){
         model.addAttribute("title", "Текущие заказы");
         model.addAttribute("username", "username");
         return "SRM/orders/current_orders";
     }
 
-    @GetMapping("srm/orders/completed_orders")
+    @GetMapping("completed_orders")
     public String completed_orders(Model model){
         model.addAttribute("title", "Завершенные заказы");
         model.addAttribute("username", "username");
         return "SRM/orders/completed_orders";
     }
 
-    @GetMapping("srm/orders/canceled_orders")
+    @GetMapping("canceled_orders")
     public String canceled_orders(Model model){
         model.addAttribute("title", "Отмененные заказы");
         model.addAttribute("username", "username");

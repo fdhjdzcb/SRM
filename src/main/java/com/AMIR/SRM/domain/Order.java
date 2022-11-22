@@ -1,64 +1,77 @@
 package com.AMIR.SRM.domain;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name="orders")
 public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private String product_name;
+    private String description;
+    private int max_price;
+    private int count;
+    private Date expected_date;
 
-    private long OrderID;
-    private String ProductName;
-    private String Description;
-    private int MaxPrice;
-    private int Count;
-    private Date ExpectedDate;
+    public Order(){
 
-    public long getOrderID() {
-        return OrderID;
     }
 
-    public void setOrderID(long orderID) {
-        OrderID = orderID;
+    public Order(String product_name, String description, int max_price, int count, Date expected_date) {
+        this.product_name = product_name;
+        this.description = description;
+        this.max_price = max_price;
+        this.count = count;
+        this.expected_date = expected_date;
     }
 
-    public String getProductName() {
-        return ProductName;
+    public long getId() {
+        return id;
     }
 
-    public void setProductName(String productName) {
-        ProductName = productName;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getProduct_name() {
+        return product_name;
+    }
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
-    public int getMaxPrice() {
-        return MaxPrice;
+    public int getMax_price() {
+        return max_price;
     }
 
-    public void setMaxPrice(int maxPrice) {
-        MaxPrice = maxPrice;
+    public void setMax_price(int max_price) {
+        this.max_price = max_price;
     }
 
     public int getCount() {
-        return Count;
+        return count;
     }
 
     public void setCount(int count) {
-        Count = count;
+        this.count = count;
     }
 
-    public Date getExpectedDate() {
-        return ExpectedDate;
+    public Date getExpected_date() {
+        return expected_date;
     }
 
-    public void setExpectedDate(Date expectedDate) {
-        ExpectedDate = expectedDate;
+    public void setExpected_date(Date expected_date) {
+        this.expected_date = expected_date;
     }
 }
