@@ -1,5 +1,8 @@
 package com.AMIR.SRM.domain;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,18 +16,24 @@ public class Order {
     private String description;
     private int max_price;
     private int count;
-    private Date expected_date;
+    private String expected_date;
+    private int real_price;
+    private String real_date;
+    private String author;
 
     public Order(){
 
     }
 
-    public Order(String product_name, String description, int max_price, int count, Date expected_date) {
+    public Order(String product_name, String description, int max_price, int count, String expected_date) {
         this.product_name = product_name;
         this.description = description;
         this.max_price = max_price;
         this.count = count;
         this.expected_date = expected_date;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        this.author = currentPrincipalName;
     }
 
     public long getId() {
@@ -67,11 +76,35 @@ public class Order {
         this.count = count;
     }
 
-    public Date getExpected_date() {
+    public String getExpected_date() {
         return expected_date;
     }
 
-    public void setExpected_date(Date expected_date) {
+    public void setExpected_date(String expected_date) {
         this.expected_date = expected_date;
+    }
+
+    public int getReal_price() {
+        return real_price;
+    }
+
+    public void setReal_price(int real_price) {
+        this.real_price = real_price;
+    }
+
+    public String getReal_date() {
+        return real_date;
+    }
+
+    public void setReal_date(String real_date) {
+        this.real_date = real_date;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

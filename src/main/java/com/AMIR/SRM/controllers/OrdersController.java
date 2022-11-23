@@ -3,6 +3,9 @@ package com.AMIR.SRM.controllers;
 import com.AMIR.SRM.domain.Order;
 import com.AMIR.SRM.repositories.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,17 +29,14 @@ public class OrdersController {
         return "SRM/orders/new_order";
     }
 
-    /*@GetMapping
-    public String main(Map<String, Object> model){
-        Iterable<Order> orders = orderRepo.findAll();
-        model.put("orders", orders);
 
-        return "SRM/orders/new_order";
-    }*/
 
+    @DateTimeFormat(pattern="dd-mm-yyyy")
     @PostMapping("new_order")
-    public String add(@RequestParam String product_name, @RequestParam String description, @RequestParam int max_price, @RequestParam int count, @RequestParam Date expected_date, Map<String, Object> model){
+
+    public String add(@RequestParam String product_name, @RequestParam String description, @RequestParam int max_price, @RequestParam int count, @RequestParam String expected_date, Map<String, Object> model){
         Order order = new Order(product_name, description, max_price, count, expected_date);
+
         orderRepo.save(order);
 
         return "SRM/orders/new_order";

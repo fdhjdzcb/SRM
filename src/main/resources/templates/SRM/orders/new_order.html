@@ -23,11 +23,11 @@
     <div class="col  p-2">
         <h1 class="text-center">Создание запроса</h1>
 
-        <form class="container needs-validation p-8 w-50" method="post"> <!--novalidate=""-->
+        <form class="container needs-validation p-8 w-50" th:action="@{/srm/orders/new_order}" method="post"> <!--novalidate=""-->
             <div class="row g-3">
                 <div class="col-12">
-                    <label for="ProductName" class="form-label">Название товара</label>
-                    <input type="text" class="form-control" id="ProductName" placeholder="Название"
+                    <label for="product_name" class="form-label">Название товара</label>
+                    <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Название"
                            required="">
                     <div class="invalid-feedback">
                         Введите название товара.
@@ -35,32 +35,32 @@
                 </div>
 
                 <div class="col-12">
-                    <label for="Description" class="form-label">Краткое описание товара</label>
-                    <input type="text" class="form-control" id="Description" placeholder="Описание..." required="">
+                    <label for="description" class="form-label">Краткое описание товара</label>
+                    <textarea class="form-control" id="description" name="description" placeholder="Описание..." required=""></textarea>
                     <div class="invalid-feedback">
                         Введите описание товара.
                     </div>
                 </div>
 
                 <div class="col-12">
-                    <label for="MaxPrice" class="form-label">Цена, ₽</label>
-                    <input type="number" min="0" step="0.01" class="form-control" id="MaxPrice" placeholder="1000" required="">
+                    <label for="max_price" class="form-label">Цена, ₽</label>
+                    <input type="number" min="0" step="0.01" class="form-control" id="max_price" name="max_price" placeholder="1000" required="">
                     <div class="invalid-feedback">
                         Введите стоимость.
                     </div>
                 </div>
 
                 <div class="col-12">
-                    <label for="Count" class="form-label">Количество</label>
-                    <input type="number" min="1" step="1" class="form-control" id="Count" placeholder="10" required="">
+                    <label for="count" class="form-label">Количество</label>
+                    <input type="number" min="1" step="1" class="form-control" id="count" name="count" placeholder="10" required="">
                     <div class="invalid-feedback">
                         Введите количество.
                     </div>
                 </div>
 
                 <div class="col-12">
-                    <label for="ExpectedDate" class="form-label">Ожидаемая дата доставки</label>
-                    <input type="date" class="form-control" id="ExpectedDate" required="">
+                    <label for="expected_date" class="form-label">Ожидаемая дата доставки</label>
+                    <input type="date" class="form-control" id="expected_date" name="expected_date" required="">
                     <div class="invalid-feedback">
                         Введите дату.
                     </div>

@@ -43,20 +43,17 @@ document.getElementById("sidebar").innerHTML = '\
                    data-bs-toggle="dropdown" aria-expanded="false">\
                     <img src="https://cdn-icons-png.flaticon.com/512/417/417777.png" alt="" width="32" height="32"\
                          class="rounded-circle me-2">\
-                    <strong th:text="${username}"/>\
+                    <strong th:text="${username}">12345</strong>\
                 </a>\
                 <ul class="dropdown-menu text-small shadow">\
                     <li><a class="dropdown-item" href="#">Настройки</a></li>\
                     <li><a class="dropdown-item" href="#">Профиль</a></li>\
                     <li>\
                         <hr class="dropdown-divider">\
-                    </li>\
-                    <li>\
-                        <form th:action="@{/logout}" method="post">\
+                        <form action="" th:action="@{/logout}" method="post">\
                             <button class="dropdown-item" type="submit">Выйти</button>\
                         </form>\
                     </li>\
-\
-                </ul>\
+                    </ul>\
             </div>\
         </ul>'
