@@ -19,9 +19,14 @@ public class MainController {
         return "SRM/SRM";
     }
 
-    @GetMapping("srm/orders")
+    @GetMapping("/srm/orders")
     public String orders(Model model){
-        return "SRM/SRM";
+        return "redirect:orders/new_order";
+    }
+
+    @GetMapping("/srm/orders/")
+    public String orders1(Model model){
+        return "redirect:new_order";
     }
 
     @GetMapping("/pricelist")
