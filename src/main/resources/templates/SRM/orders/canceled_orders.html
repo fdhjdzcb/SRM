@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
     <link rel="stylesheet" href="" th:href="@{/css/SRMstyle.css}" />
+    <link rel="stylesheet" href="" th:href="@{/css/Table.css}" />
 </head>
 <body>
 <div class="row">
@@ -17,6 +18,36 @@
     </div>
     <div class="col text-center p-2">
         <h1>Отменённые заказы</h1>
+        <div class="container">
+            <table class="iksweb">
+                <tbody>
+                <tr>
+                    <th rowspan="2">Название</th>
+                    <th rowspan="2">Описание</th>
+                    <th rowspan="2">Кол-во</th>
+                    <th colspan="2">Цена</th>
+                    <th colspan="2">Дата</th>
+                    <th rowspan="2">Статус</th>
+                </tr>
+                <tr>
+                    <th>Ожидаемая</th>
+                    <th>Реальная</th>
+                    <th>Ожидаемая</th>
+                    <th>Реальная</th>
+                </tr>
+                <tr th:each="el : ${pastOrder}">
+                    <td th:text="${el.product_name}"/>
+                    <td th:text="${el.description}"/>
+                    <td th:text="${el.count}"/>
+                    <td th:text="${el.max_price}"/>
+                    <td>-----</td>
+                    <td th:text="${el.expected_date}"/>
+                    <td>-----</td>
+                    <td th:text="${el.status}"/>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </div>

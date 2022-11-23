@@ -1,7 +1,9 @@
 package com.AMIR.SRM.controllers;
 
 import com.AMIR.SRM.domain.Order;
+import com.AMIR.SRM.domain.PastOrder;
 import com.AMIR.SRM.repositories.OrderRepo;
+import com.AMIR.SRM.repositories.PastOrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -22,6 +24,9 @@ public class OrdersController {
 
     @Autowired
     private OrderRepo orderRepo;
+
+    @Autowired
+    private PastOrderRepo pastOrderRepo;
 
     @GetMapping("new_order")
     public String new_order(Model model){
@@ -59,6 +64,9 @@ public class OrdersController {
         String currentPrincipalName = authentication.getName();
         model.addAttribute("title", "Завершенные заказы");
         model.addAttribute("username", currentPrincipalName);
+
+        List<PastOrder> pastOrder = pastOrderRepo.findAll();
+        model.addAttribute("pastOrder", pastOrder);
         return "SRM/orders/completed_orders";
     }
 
@@ -68,6 +76,9 @@ public class OrdersController {
         String currentPrincipalName = authentication.getName();
         model.addAttribute("title", "Отмененные заказы");
         model.addAttribute("username", currentPrincipalName);
+
+        List<PastOrder> pastOrder = pastOrderRepo.findAll();
+        model.addAttribute("pastOrder", pastOrder);
         return "SRM/orders/canceled_orders";
     }
 }

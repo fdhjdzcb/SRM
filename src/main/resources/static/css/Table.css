@@ -1,4 +1,4 @@
-table.iksweb{
+/*table.iksweb{
     width: 100%;
     border-collapse:collapse;
     border-spacing:0;
@@ -16,4 +16,41 @@ table.iksweb th {
     background: #347c99;
     color: #fff;
     font-weight: normal;
+}*/
+
+table.iksweb {
+    text-decoration: none;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
 }
+
+table.iksweb th {
+    font-weight: 500;
+    font-size: 18px;
+    color: #000000;
+    background-color: #a2f2c8;
+}
+
+table.iksweb td {
+    font-size: 14px;
+    color: #354251;
+}
+
+table.iksweb td, table.iksweb th {
+    white-space: pre-wrap;
+    padding: 10px 7px;
+    line-height: 13px;
+    vertical-align: middle;
+    border: 1px solid #354251;
+}
+
+table.iksweb tr:hover {
+    background-color: #edfcf2
+}
+
+table.iksweb tr:hover td {
+    color: #000000;
+    cursor: default;
+}
+
