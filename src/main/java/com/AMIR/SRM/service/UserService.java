@@ -22,7 +22,7 @@ public class UserService implements UserDetailsService {
     private MailSender mailSender;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return (UserDetails) userRepo.findByUsername(username);
     }
 
@@ -50,14 +50,13 @@ public class UserService implements UserDetailsService {
             );
             mailSender.send(user.getEmail(), "Код активации", message);
         }
-
-            return true;
+        return true;
     }
 
     public boolean activateUser(String code) {
         User user = userRepo.findByActivationCode(code);
 
-        if (user == null){
+        if (user == null) {
             return false;
         }
 

@@ -7,27 +7,17 @@
 </head>
 <body>
 <div class="container">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <ul class="nav col-12 mb-2 justify-content-center mb-md-0">
-            <li><a href="" class="nav-link px-2 link-secondary">Главная страница</a></li>
-            <li><a href="/srm" class="nav-link px-2 link-dark">SRM</a></li>
-            <li><a href="/pricelist" class="nav-link px-2 link-dark">Цены</a></li>
-            <li><a href="/manual" class="nav-link px-2 link-dark">Руководство</a></li>
-            <li><a href="/about" class="nav-link px-2 link-dark">Про нас</a></li>
-        </ul>
-
-    </header>
+    <div>
+        <nav id="menu">
+            <script src="" th:src="@{js/homepage.js}"></script>
+        </nav>
+    </div>
     <main>
-
         <section class="py-5 text-center container">
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
                     <h1 class="fw-light">О проекте</h1>
                     <p class="lead text-muted">Система закупки крупного предприятия AMIR.</p>
-                    <!--<p>
-                        <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-                    </p>-->
                 </div>
             </div>
         </section>

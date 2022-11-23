@@ -19,9 +19,7 @@
 
 <div class="container text-center" style="width:20rem;">
 <form th:action="@{/registration}" method="post">
-    <div th:text="${message}" class="text-center">
-        <!--Пользователь с таким логином уже существует.-->
-    </div>
+    <div th:text="${message}" class="text-center"/>
     <h1 class="h3 mb-3 fw-normal ">Регистрация</h1>
     <div class="form-floating mb-3">
         <input required="" type="username" class="form-control" id="floatingInput" name="username" placeholder="username" minlength="6">
@@ -37,7 +35,6 @@
     </div>
     <div>
         <button class="w-100 btn btn-lg btn-primary py-3" type="submit">Зарегистрироваться</button>
-        <!--<button class="w-100 btn btn-lg btn-primary py-3" type="submit">Зарегистрироваться</button>-->
     </div>
     <a href="./login" class="nav-link px-2 link-secondary">Вернуться ко входу</a>
 
