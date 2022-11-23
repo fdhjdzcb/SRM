@@ -8,11 +8,7 @@
     <link rel="stylesheet" href="" th:href="@{/css/HomePage.css}" />
 </head>
 <body>
-<div>
-    <nav id="menu">
-        <script src="" th:src="@{js/homepage.js}"></script>
-    </nav>
-</div>
+<header th:insert="blocks/homemenu :: homemenu"></header>
 
 <div th:if="${param.error}" class="text-center">
     Неверный логин или пароль.

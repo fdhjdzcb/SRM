@@ -8,11 +8,8 @@
 </head>
 <body>
 <div class="container">
-    <div>
-        <nav id="menu">
-            <script src="" th:src="@{js/homepage.js}"></script>
-        </nav>
-    </div>
+    <header th:insert="blocks/homemenu :: homemenu"></header>
+
     <main class="container">
         <div class="p-4 p-md-5 mb-4 rounded text-bg-dark">
             <div class="col-md-10 px-0">
