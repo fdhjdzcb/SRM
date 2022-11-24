@@ -2,7 +2,6 @@
     <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
         <span class="fs-5 fw-semibold">AMIR</span>
     </a>
-    <p th:text="${role}">Ошибка</p>
     <ul class="list-unstyled ps-0">
         <li class="mb-1">
             <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
@@ -35,14 +34,13 @@
                            class="link-dark d-inline-flex text-decoration-none rounded">Завершенные</a></li>
                     <li><a href="/srm/orders/canceled_orders"
                            class="link-dark d-inline-flex text-decoration-none rounded">Отменённые</a></li>
-                    <li><a href="/srm/orders/future_orders"
+                    <li><a  th:if="${role != '[USER]'}" href="/srm/orders/future_orders"
                            class="link-dark d-inline-flex text-decoration-none rounded">Согласовать</a></li>
                 </ul>
             </div>
         </li>
-        <li class="btn-toggle-nav fw-normal pb-1">
-            <!--<li th:if="${role == '[ADMIN]'}" class="btn-toggle-nav fw-normal pb-1">-->
-            <a href="/srm/admin" class="link-dark d-inline-flex text-decoration-none rounded bold">Админ-панель</a>
+        <li  class="btn-toggle-nav fw-normal pb-1">
+            <a th:if="${role == '[ADMIN]'}" href="/srm/admin" class="link-dark d-inline-flex text-decoration-none rounded bold">Админ-панель</a>
         </li>
         <li class="border-top my-3"></li>
         <div class="dropdown">

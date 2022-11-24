@@ -33,7 +33,7 @@ public class OrdersController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("title", "Создание заказа");
         model.addAttribute("username", authentication.getName());
-        model.addAttribute("role", authentication.getAuthorities());
+        model.addAttribute("role", authentication.getAuthorities().toString());
         return "SRM/orders/new_order";
     }
 
@@ -51,7 +51,7 @@ public class OrdersController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("title", "Текущие заказы");
         model.addAttribute("username", authentication.getName());
-        model.addAttribute("role", authentication.getAuthorities());
+        model.addAttribute("role", authentication.getAuthorities().toString());
 
         List<Order> order = orderRepo.findAll();
         model.addAttribute("order", order);
@@ -64,7 +64,7 @@ public class OrdersController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("title", "Текущие заказы");
         model.addAttribute("username", authentication.getName());
-        model.addAttribute("role", authentication.getAuthorities());
+        model.addAttribute("role", authentication.getAuthorities().toString());
 
         List<Order> order = orderRepo.findAll();
         model.addAttribute("order", order);
@@ -76,7 +76,7 @@ public class OrdersController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("title", "Завершенные заказы");
         model.addAttribute("username", authentication.getName());
-        model.addAttribute("role", authentication.getAuthorities());
+        model.addAttribute("role", authentication.getAuthorities().toString());
 
         List<PastOrder> pastOrder = pastOrderRepo.findAll();
         model.addAttribute("pastOrder", pastOrder);
@@ -88,7 +88,7 @@ public class OrdersController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("title", "Отмененные заказы");
         model.addAttribute("username", authentication.getName());
-        model.addAttribute("role", authentication.getAuthorities());
+        model.addAttribute("role", authentication.getAuthorities().toString());
 
         List<PastOrder> pastOrder = pastOrderRepo.findAll();
         model.addAttribute("pastOrder", pastOrder);
