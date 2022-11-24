@@ -20,7 +20,7 @@ public class Order {
     private int real_price;
     private String real_date;
     private String author;
-
+    private boolean is_approved;
     public Order(){
 
     }
@@ -34,6 +34,7 @@ public class Order {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         this.author = currentPrincipalName;
+        this.is_approved = false;
     }
 
     public long getId() {
@@ -106,5 +107,13 @@ public class Order {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public boolean isIs_approved() {
+        return is_approved;
+    }
+
+    public void setIs_approved(boolean is_approved) {
+        this.is_approved = is_approved;
     }
 }

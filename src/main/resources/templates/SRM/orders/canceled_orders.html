@@ -35,7 +35,7 @@
                     <th>Ожидаемая</th>
                     <th>Реальная</th>
                 </tr>
-                <tr th:each="el : ${pastOrder}">
+                <tr th:if="${el.status == 'canceled'}" th:each="el : ${pastOrder}">
                     <td th:text="${el.product_name}"/>
                     <td th:text="${el.description}"/>
                     <td th:text="${el.count}"/>

@@ -31,9 +31,9 @@ public class OrdersController {
     @GetMapping("new_order")
     public String new_order(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
         model.addAttribute("title", "Создание заказа");
-        model.addAttribute("username", currentPrincipalName);
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities());
         return "SRM/orders/new_order";
     }
 
@@ -49,9 +49,9 @@ public class OrdersController {
     @GetMapping("current_orders")
     public String current_orders(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
         model.addAttribute("title", "Текущие заказы");
-        model.addAttribute("username", currentPrincipalName);
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities());
 
         List<Order> order = orderRepo.findAll();
         model.addAttribute("order", order);
@@ -61,9 +61,9 @@ public class OrdersController {
     @GetMapping("completed_orders")
     public String completed_orders(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
         model.addAttribute("title", "Завершенные заказы");
-        model.addAttribute("username", currentPrincipalName);
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities());
 
         List<PastOrder> pastOrder = pastOrderRepo.findAll();
         model.addAttribute("pastOrder", pastOrder);
@@ -73,9 +73,9 @@ public class OrdersController {
     @GetMapping("canceled_orders")
     public String canceled_orders(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
         model.addAttribute("title", "Отмененные заказы");
-        model.addAttribute("username", currentPrincipalName);
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities());
 
         List<PastOrder> pastOrder = pastOrderRepo.findAll();
         model.addAttribute("pastOrder", pastOrder);

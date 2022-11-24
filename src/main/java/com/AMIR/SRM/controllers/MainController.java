@@ -1,5 +1,6 @@
 package com.AMIR.SRM.controllers;
 
+import com.AMIR.SRM.domain.Role;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ public class MainController {
         String currentPrincipalName = authentication.getName();
         model.addAttribute("title", "SRM");
         model.addAttribute("username", currentPrincipalName);
+        model.addAttribute("role", authentication.getAuthorities().toString());
         return "SRM/SRM";
     }
 
@@ -50,4 +52,5 @@ public class MainController {
         model.addAttribute("title", "Про нас");
         return "homepage/about";
     }
+
 }
