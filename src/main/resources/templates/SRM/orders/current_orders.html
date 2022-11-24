@@ -34,7 +34,7 @@
                     <th>Ожидаемая</th>
                     <th>Реальная</th>
                 </tr>
-                <tr th:each="el : ${order}">
+                <tr th:if="${el.is_approved}" th:each="el : ${order}">
                     <td th:text="${el.product_name}"/>
                     <td th:text="${el.description}"/>
                     <td th:text="${el.count}"/>

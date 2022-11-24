@@ -6,6 +6,7 @@ import com.AMIR.SRM.repositories.OrderRepo;
 import com.AMIR.SRM.repositories.PastOrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,6 @@ public class OrdersController {
 
     @Autowired
     private OrderRepo orderRepo;
-
     @Autowired
     private PastOrderRepo pastOrderRepo;
 
@@ -56,6 +56,19 @@ public class OrdersController {
         List<Order> order = orderRepo.findAll();
         model.addAttribute("order", order);
         return "SRM/orders/current_orders";
+    }
+
+    @PreAuthorize("hasAnyAuthority('DIRECTOR', 'ADMIN')")
+    @GetMapping("future_orders")
+    public String future_orders(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("title", "Текущие заказы");
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities());
+
+        List<Order> order = orderRepo.findAll();
+        model.addAttribute("order", order);
+        return "SRM/orders/future_orders";
     }
 
     @GetMapping("completed_orders")
