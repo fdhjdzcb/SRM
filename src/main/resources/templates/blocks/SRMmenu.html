@@ -14,8 +14,7 @@
                     <li><a href="./manual"
                            class="link-dark d-inline-flex text-decoration-none rounded">Руководство<br>пользователя</a>
                     </li>
-                    <li><a href="./about" class="link-dark d-inline-flex text-decoration-none rounded">О нас</a>
-                    </li>
+                    <li><a href="./about" class="link-dark d-inline-flex text-decoration-none rounded">О нас</a></li>
                 </ul>
             </div>
         </li>
@@ -36,6 +35,7 @@
                            class="link-dark d-inline-flex text-decoration-none rounded">Отменённые</a></li>
                     <li><a  th:if="${role != '[USER]'}" href="/srm/orders/future_orders"
                            class="link-dark d-inline-flex text-decoration-none rounded">Согласовать</a></li>
+                    <li><a href="/pdf/generate" class="link-dark d-inline-flex text-decoration-none rounded">PDF</a></li>
                 </ul>
             </div>
         </li>
