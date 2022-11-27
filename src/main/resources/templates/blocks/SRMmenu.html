@@ -34,13 +34,14 @@
                            class="link-dark d-inline-flex text-decoration-none rounded">Завершенные</a></li>
                     <li><a href="/srm/orders/canceled_orders"
                            class="link-dark d-inline-flex text-decoration-none rounded">Отменённые</a></li>
-                    <li><a  th:if="${role != '[USER]'}" href="/srm/orders/future_orders"
+                    <li><a th:if="${role != '[USER]'}" href="/srm/orders/future_orders"
                            class="link-dark d-inline-flex text-decoration-none rounded">Согласовать</a></li>
                 </ul>
             </div>
         </li>
-        <li  class="btn-toggle-nav fw-normal pb-1">
-            <a th:if="${role == '[ADMIN]'}" href="/srm/admin" class="link-dark d-inline-flex text-decoration-none rounded bold">Админ-панель</a>
+        <li class="btn-toggle-nav fw-normal pb-1">
+            <a th:if="${role == '[ADMIN]'}" href="/srm/admin"
+               class="link-dark d-inline-flex text-decoration-none rounded bold">Админ-панель</a>
         </li>
         <li class="border-top my-3"></li>
         <div class="dropdown">

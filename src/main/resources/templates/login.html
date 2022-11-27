@@ -5,7 +5,7 @@
     <title>Вход</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="" th:href="@{/css/HomePage.css}" />
+    <link rel="stylesheet" href="" th:href="@{/css/HomePage.css}"/>
 </head>
 <body>
 <header th:insert="blocks/homemenu :: homemenu"></header>
@@ -17,23 +17,25 @@
     Вы вышли из аккаунта.
 </div>
 <div class="container text-center" style="width:20rem;">
-<form th:action="@{/login}" method="post">
-    <h1 class="h3 mb-3 fw-normal ">Пожалуйста, войдите</h1>
+    <form th:action="@{/login}" method="post">
+        <h1 class="h3 mb-3 fw-normal ">Пожалуйста, войдите</h1>
 
-    <div class="form-floating mb-3">
-        <input required="" type="text" class="form-control" id="floatingInput" name="username" placeholder="username" minlength="6">
-        <label for="floatingInput">Логин</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input required="" type="password" class="form-control" id="floatingPassword" name="password" placeholder="password" minlength="8">
-        <label for="floatingPassword">Пароль</label>
-    </div>
-    <div>
-        <button class="w-100 btn btn-lg btn-primary py-3" type="submit">Войти</button>
-    </div>
-    <a href="./registration" class="nav-link px-2 link-secondary">Зарегистрироваться</a>
-    <p class="mt-5 mb-3 text-muted">© 2022 AMIR company, Inc</p>
-</form>
+        <div class="form-floating mb-3">
+            <input required="" type="text" class="form-control" id="floatingInput" name="username"
+                   placeholder="username" minlength="6">
+            <label for="floatingInput">Логин</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input required="" type="password" class="form-control" id="floatingPassword" name="password"
+                   placeholder="password" minlength="8">
+            <label for="floatingPassword">Пароль</label>
+        </div>
+        <div>
+            <button class="w-100 btn btn-lg btn-primary py-3" type="submit">Войти</button>
+        </div>
+        <a href="./registration" class="nav-link px-2 link-secondary">Зарегистрироваться</a>
+        <p class="mt-5 mb-3 text-muted">© 2022 AMIR company, Inc</p>
+    </form>
 </div>
 </body>
 </html>

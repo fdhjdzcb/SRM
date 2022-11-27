@@ -2,6 +2,8 @@ package com.AMIR.SRM.controllers;
 
 import com.AMIR.SRM.domain.Order;
 import com.AMIR.SRM.domain.PastOrder;
+import com.AMIR.SRM.domain.Role;
+import com.AMIR.SRM.domain.User;
 import com.AMIR.SRM.repositories.OrderRepo;
 import com.AMIR.SRM.repositories.PastOrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -76,6 +75,16 @@ public class OrdersController {
         List<Order> order = orderRepo.findAll();
         model.addAttribute("order", order);
         return "SRM/orders/future_orders";
+    }
+
+    @GetMapping("future_orders/{order}")
+    public String userEditForm(@PathVariable Order order, Model model){
+        model.addAttribute("title", "Согласование заказа");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities().toString());
+        model.addAttribute("user", order);
+        return "SRM/orders/approve_order";
     }
 
     @GetMapping("completed_orders")
