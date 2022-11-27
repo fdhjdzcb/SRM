@@ -48,7 +48,6 @@ public class UserController {
     public String userSave(
             @RequestParam String username,
             @RequestParam String email,
-            @RequestParam Map<String, String> form,
             @RequestParam String role,
             @RequestParam("userId") User user
     ){
@@ -58,7 +57,7 @@ public class UserController {
         user.getRoles().add(Role.valueOf(role));
 
         userRepo.save(user);
-        return "SRM/admin";
+        return "redirect:/srm/admin/";
     }
 
 }

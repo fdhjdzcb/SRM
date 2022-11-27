@@ -75,4 +75,8 @@ public class User {
     public void setRoles(Set<Role> role) {
         this.role = role;
     }
+
+    public String getStrRole() {
+        return role.iterator().next().toString();
+    }
 }
