@@ -17,24 +17,38 @@
         <div th:insert="blocks/SRMmenu :: srmmenu"></div>
     </div>
     <div class="col text-center p-2">
-        <h1>Админ-панель</h1>
-        <div class="container">
-            <table class="iksweb">
-                <tbody>
-                <tr>
-                    <th>Логин</th>
-                    <th>Почта</th>
-                    <th>Роль</th>
-                </tr>
-                <tr th:each="el : ${users}" th:if="${el.getRoles().iterator().next().toString() != 'ADMIN'}">
-                    <td th:text="${el.username}"/>
-                    <td th:text="${el.email}"/>
-                    <td th:text="${el.getRoles().iterator().next().toString()}"/>
-                    <td th:width="100px"><a th:href="@{/srm/admin/{id}(id=${el.id})}">Изменить</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <h1>Изменение пользователей</h1>
+        <form class="container needs-validation p-8 w-25" action="/srm/admin" method="post">
+            <div class="row g-3">
+                <div class="col-12">
+                    <label for="username" class="form-label">Логин</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Логин"
+                           th:value="${user.username}" minlength="6"
+                           required="">
+                </div>
+
+                <div class="col-12">
+                    <label for="email" class="form-label">Эл. почта</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Почта"
+                           th:value="${user.email}"
+                           required="">
+                </div>
+
+                <div>
+                <label for="role" class="form-label">Права доступа</label>
+                <select class="form-control text-center" id="role" name="role" >
+                    <option th:text="'DIRECTOR'"></option>
+                    <option th:text="'USER'"></option>
+                </select>
+                </div>
+                <input type="hidden" th:value="${user.id}" name="userId">
+                <input type="hidden" th:value="${_csrf.token}" name="_csrf">
+
+                <hr class="my-4">
+
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Сохранить</button>
+            </div>
+        </form>
     </div>
 
 </div>

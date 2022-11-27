@@ -39,7 +39,14 @@ public class OrdersController {
 
     @DateTimeFormat(pattern="dd-mm-yyyy")
     @PostMapping("new_order")
-    public String add(@RequestParam String product_name, @RequestParam String description, @RequestParam int max_price, @RequestParam int count, @RequestParam String expected_date, Map<String, Object> model){
+    public String add(
+            @RequestParam String product_name,
+            @RequestParam String description,
+            @RequestParam int max_price,
+            @RequestParam int count,
+            @RequestParam String expected_date,
+            Map<String, Object> model){
+
         Order order = new Order(product_name, description, max_price, count, expected_date);
         orderRepo.save(order);
 
