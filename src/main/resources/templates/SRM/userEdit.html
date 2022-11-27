@@ -37,10 +37,8 @@
                 <div>
                 <label for="role" class="form-label">Права доступа</label>
                 <select class="form-control text-center" id="role" name="role" >
-                    <option th:if="${user.getStrRole()=='DIRECTOR'}" selected="selected" th:text="'DIRECTOR'"></option>
-                    <option th:if="${user.getStrRole()!='DIRECTOR'}" th:text="'DIRECTOR'"></option>
-                    <option th:if="${user.getStrRole()=='USER'}" selected="selected" th:text="'USER'"></option>
-                    <option th:if="${user.getStrRole()!='USER'}" th:text="'USER'"></option>
+                    <option th:each="el : ${roles}" th:if="${user.getStrRole() == el.toString() and el.toString() != 'ADMIN'}" selected="selected" th:text="${el.toString()}"></option>
+                    <option th:each="el : ${roles}" th:if="${user.getStrRole() != el.toString() and el.toString() != 'ADMIN'}" th:text="${el.toString()}"></option>
                 </select>
                 </div>
                 <input type="hidden" th:value="${user.id}" name="userId">
