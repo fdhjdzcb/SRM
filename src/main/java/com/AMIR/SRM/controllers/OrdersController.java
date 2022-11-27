@@ -78,13 +78,33 @@ public class OrdersController {
     }
 
     @GetMapping("future_orders/{order}")
-    public String userEditForm(@PathVariable Order order, Model model){
-        model.addAttribute("title", "Согласование заказа");
+    public String orderEditForm(@PathVariable Order order, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("title", "Согласование заказа");
         model.addAttribute("username", authentication.getName());
         model.addAttribute("role", authentication.getAuthorities().toString());
-        model.addAttribute("user", order);
+        model.addAttribute("order", order);
         return "SRM/orders/approve_order";
+    }
+
+    @PostMapping("/future_orders")
+    public String orderSave(
+            @RequestParam String product_name,
+            @RequestParam String description,
+            @RequestParam int count,
+            @RequestParam int max_price,
+            @RequestParam String expected_date,
+            @RequestParam("orderId") Order order
+    ){
+        order.setProduct_name(product_name);
+        order.setDescription(description);
+        order.setCount(count);
+        order.setMax_price(max_price);
+        order.setExpected_date(expected_date);
+        order.setIs_approved(true);
+
+        orderRepo.save(order);
+        return "redirect:/srm/orders/future_orders";
     }
 
     @GetMapping("completed_orders")

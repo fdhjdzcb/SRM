@@ -22,27 +22,19 @@
             <table class="iksweb">
                 <tbody>
                 <tr>
-                    <th rowspan="2">Название</th>
-                    <th rowspan="2">Описание</th>
-                    <th rowspan="2">Кол-во</th>
-                    <th colspan="2">Цена</th>
-                    <th colspan="2">Дата</th>
-                </tr>
-                <tr>
-                    <th>Ожидаемая</th>
-                    <th>Реальная</th>
-                    <th>Ожидаемая</th>
-                    <th>Реальная</th>
+                    <th>Название</th>
+                    <th>Описание</th>
+                    <th>Кол-во</th>
+                    <th>Ожидаемая цена</th>
+                    <th>Ожидаемая дата</th>
                 </tr>
                 <tr th:if="${not el.is_approved}" th:each="el : ${order}">
                     <td th:text="${el.product_name}"/>
                     <td th:text="${el.description}"/>
                     <td th:text="${el.count}"/>
                     <td th:text="${el.max_price}"/>
-                    <td th:text="${el.real_price}"/>
                     <td th:text="${el.expected_date}"/>
-                    <td th:text="${el.real_date}"/>
-                    <td th:width="100px"><a th:href="@{/srm/orders/{id}(id=${el.id})}">Согласовать</a></td>
+                    <td th:width="100px"><a th:href="@{/srm/orders/future_orders/{id}(id=${el.id})}">Согласовать</a></td>
                 </tr>
                 </tbody>
             </table>

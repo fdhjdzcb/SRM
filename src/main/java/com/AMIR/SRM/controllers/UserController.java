@@ -44,7 +44,7 @@ public class UserController {
         return "SRM/userEdit";
     }
 
-    @PostMapping
+    @PostMapping()
     public String userSave(
             @RequestParam String username,
             @RequestParam String email,
