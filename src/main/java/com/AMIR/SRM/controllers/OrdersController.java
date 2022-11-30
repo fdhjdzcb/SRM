@@ -119,10 +119,6 @@ public class OrdersController {
                 break;
             }
         }
-        /*
-        order.setReal_price(real_price);
-        order.setReal_date(real_date);
-        order.setCount(real_count);*/
         orderRepo.save(order);
         return "redirect:/srm/orders/current_orders";
     }

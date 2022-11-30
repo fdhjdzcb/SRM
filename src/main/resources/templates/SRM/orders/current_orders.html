@@ -39,11 +39,16 @@
                     <td th:text="${el.product_name}"/>
                     <td th:text="${el.description}"/>
                     <td th:text="${el.count}"/>
+
                     <td th:text="${el.max_price}"/>
-                    <td th:text="${el.real_price}"/>
+                    <td th:if="${el.real_price}" th:text="${el.real_price}"/>
+                    <td th:if="not ${el.real_price}" th:text="-----"/>
+
                     <td th:text="${el.expected_date}"/>
-                    <td th:text="${el.real_date}"/>
-                    <td th:if="not ${el.getProvider()}"><a th:href="@{/srm/orders/current_orders/{id}(id=${el.id})}">Поставщик</a></td>
+                    <td th:if="${el.real_date}" th:text="${el.real_date}"/>
+                    <td th:if="not ${el.real_date}" th:text="-----"/>
+
+                    <td th:if="not ${el.getProvider()}"><a th:href="@{/srm/orders/current_orders/{id}(id=${el.id})}">Выбрать</a></td>
                     <td th:if="${el.getProvider()}" th:text="${el.getProvider()}"></td>
                 </tr>
                 </tbody>

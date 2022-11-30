@@ -55,14 +55,6 @@
                            th:value="${order.expected_date}" required="">
                 </div>
 
-                <div class="col-12">
-                    <label for="xprovider" class="form-label">Поставщик</label>
-                    <select class="form-control text-center" id="xprovider" name="xprovider">
-                        <option th:each="el : ${provider}"
-                                th:text="${el.getName()}"></option>
-                    </select>
-                </div>
-
                 <input type="hidden" th:value="${order.id}" name="orderId">
                 <input type="hidden" th:value="${_csrf.token}" name="_csrf">
 

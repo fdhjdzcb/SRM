@@ -14,7 +14,6 @@ public class Provider {
     private String new_date;
     private int new_price;
     private int new_count;
-
     public Provider() {}
 
     public String getName() {
