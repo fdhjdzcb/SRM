@@ -26,12 +26,12 @@ public class MainController {
     }
 
     @GetMapping("/srm/orders")
-    public String orders(Model model){
+    public String orders(Model model) {
         return "redirect:orders/new_order";
     }
 
     @GetMapping("/srm/orders/")
-    public String orders1(Model model){
+    public String orders1(Model model) {
         return "redirect:new_order";
     }
 
@@ -52,5 +52,11 @@ public class MainController {
         model.addAttribute("title", "Про нас");
         return "homepage/about";
     }
+
+    /*@GetMapping("/error")
+    public String error(Model model){
+        model.addAttribute("title", "Ошибка");
+        return "error";
+    }*/
 
 }

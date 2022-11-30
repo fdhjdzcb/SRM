@@ -21,6 +21,8 @@ public class Order {
     private String real_date;
     private String author;
     private boolean is_approved;
+
+    private String provider;
     public Order(){
 
     }
@@ -115,5 +117,13 @@ public class Order {
 
     public void setIs_approved(boolean is_approved) {
         this.is_approved = is_approved;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 }

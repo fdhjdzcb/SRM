@@ -27,6 +27,7 @@
                     <th rowspan="2">Кол-во</th>
                     <th colspan="2">Цена</th>
                     <th colspan="2">Дата</th>
+                    <th rowspan="2">Поставщик</th>
                 </tr>
                 <tr>
                     <th>Ожидаемая</th>
@@ -42,6 +43,8 @@
                     <td th:text="${el.real_price}"/>
                     <td th:text="${el.expected_date}"/>
                     <td th:text="${el.real_date}"/>
+                    <td th:if="not ${el.getProvider()}"><a th:href="@{/srm/orders/current_orders/{id}(id=${el.id})}">Поставщик</a></td>
+                    <td th:if="${el.getProvider()}" th:text="${el.getProvider()}"></td>
                 </tr>
                 </tbody>
             </table>
