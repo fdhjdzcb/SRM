@@ -42,6 +42,20 @@ public class PastOrder {
         this.provider = order.getProvider();
     }
 
+    public PastOrder(Order order, String status) {
+        this.id = order.getId();
+        this.product_name = order.getProduct_name();
+        this.description = order.getDescription();
+        this.max_price = order.getMax_price();
+        this.count = order.getCount();
+        this.expected_date = order.getExpected_date();
+        this.real_price = order.getReal_price();
+        this.real_date = order.getReal_date();
+        this.status = status;
+        this.author = order.getAuthor();
+        this.provider = order.getProvider();
+    }
+
     public long getId() {
         return id;
     }

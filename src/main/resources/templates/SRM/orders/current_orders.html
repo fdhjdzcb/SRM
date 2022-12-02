@@ -10,6 +10,8 @@
 
     <link rel="stylesheet" href="" th:href="@{/css/SRMstyle.css}"/>
     <link rel="stylesheet" href="" th:href="@{/css/Table.css}"/>
+    <link rel="stylesheet" href="" th:href="@{/css/Approving.css}"/>
+    <link rel="stylesheet" href="" th:href="@{/css/Buttons.css}"/>
 </head>
 <body>
 <div class="row">
@@ -19,12 +21,12 @@
     <div class="col text-center p-2">
         <h1>Текущие заказы</h1>
         <div class="container">
-            <table class="iksweb">
+            <table class="iksweb" id="sortedTable">
                 <tbody>
                 <tr>
-                    <th rowspan="2">Название</th>
-                    <th rowspan="2">Описание</th>
-                    <th rowspan="2">Кол-во</th>
+                    <th onclick="sortTable(0)" rowspan="2">Название</th>
+                    <th onclick="sortTable(1)" rowspan="2">Описание</th>
+                    <th onclick="sortTable(2)" rowspan="2">Кол-во</th>
                     <th colspan="2">Цена</th>
                     <th colspan="2">Дата</th>
                     <th rowspan="2">Поставщик</th>
@@ -48,24 +50,36 @@
                     <td th:if="${el.real_date}" th:text="${el.real_date}"/>
                     <td th:if="not ${el.real_date}" th:text="-----"/>
 
-                    <td th:if="not ${el.getProvider()}"><a th:href="@{/srm/orders/current_orders/{id}(id=${el.id})}">Выбрать</a></td>
-                    <td th:if="${el.getProvider()}" th:text="${el.getProvider()}"></td>
+                    <td th:width="100px" th:if="not ${el.getProvider()}"><form th:action="@{/srm/orders/current_orders/{id}(id=${el.id})}"><button class="button-30" type="submit">Выбрать</button></form></td>
+                    <td th:width="100px" th:if="${el.getProvider()}" th:text="${el.getProvider()}"></td>
+
+                    <td th:width="100px"><form th:action="@{/srm/orders/current_orders/finishing/{id}(id=${el.id})}"><button th:if="${el.getReal_date()}" class="button-30" onclick="finishOrder()">Завершить</button></form><form th:action="@{/srm/orders/current_orders/cancelling/{id}(id=${el.id})}"><button class="button-30" onclick="cancelOrder()">Отменить</button></form></td>
                 </tr>
                 </tbody>
             </table>
         </div>
-
+    </div>
+    <div class="cd-popup" role="alert">
+        <div class="cd-popup-container">
+            <p>Are you sure you want to delete this element?</p>
+            <ul class="cd-buttons">
+                <li><a href="#0">Yes</a></li>
+                <li><a href="#0">No</a></li>
+            </ul>
+            <a href="#0" class="cd-popup-close img-replace">Close</a>
+        </div>
     </div>
 
 </div>
 
 <script>
-    let currDate = new Date().toISOString().split('T')[0];
-    let leftDays = document.getElementById("expected_date").textContent - currDate;
-    if (leftDays < 3)
-        document.getElementById("row").style.setProperty("background", "red");
-    else
-        document.getElementById("row").style.setProperty("background", "aqua");
+    function cancelOrder() {
+        confirm("Вы уверены, что хотите отменить заказ?")
+    }
+
+    function finishOrder() {
+        confirm("Вы уверены, что хотите завершить заказ?")
+    }
 </script>
 
 <div th:insert="blocks/scripts_footer :: scripts_footer"></div>

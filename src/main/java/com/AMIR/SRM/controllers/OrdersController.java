@@ -63,12 +63,19 @@ public class OrdersController {
         model.addAttribute("role", authentication.getAuthorities().toString());
 
         List<Order> order = orderRepo.findAll();
+        Collections.sort(order, new Comparator<Order>() {
+            public int compare(Order c1, Order c2) {
+                if (c1.getExpected_date().before(c2.getExpected_date())) return -1;
+                if (c1.getExpected_date().after(c2.getExpected_date())) return 1;
+                return 0;
+            }});
+
         Date currentDate = new Date(System.currentTimeMillis());
         for (int i = 0; i < order.size(); i++)
         {
             if (order.get(i).getExpected_date().before(currentDate) && order.get(i).getProvider().isEmpty())
             {
-                PastOrder pastOrder = new PastOrder(order.get(i));
+                PastOrder pastOrder = new PastOrder(order.get(i), "canceled");
                 pastOrderRepo.save(pastOrder);
                 orderRepo.delete(order.get(i));
             }
@@ -135,6 +142,22 @@ public class OrdersController {
             }
         }
         orderRepo.save(order);
+        return "redirect:/srm/orders/current_orders";
+    }
+
+    @GetMapping("current_orders/cancelling/{order}")
+    public String cancel_order(@PathVariable Order order, Model model) {
+        PastOrder pastOrder = new PastOrder(order, "canceled");
+        pastOrderRepo.save(pastOrder);
+        orderRepo.delete(order);
+        return "redirect:/srm/orders/current_orders";
+    }
+
+    @GetMapping("current_orders/finishing/{order}")
+    public String finish_order(@PathVariable Order order, Model model) {
+        PastOrder pastOrder = new PastOrder(order, "completed");
+        pastOrderRepo.save(pastOrder);
+        orderRepo.delete(order);
         return "redirect:/srm/orders/current_orders";
     }
 
