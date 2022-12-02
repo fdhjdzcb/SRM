@@ -73,7 +73,7 @@ public class OrdersController {
         Date currentDate = new Date(System.currentTimeMillis());
         for (int i = 0; i < order.size(); i++)
         {
-            if (order.get(i).getExpected_date().before(currentDate) && order.get(i).getProvider().isEmpty())
+            if (order.get(i).getExpected_date().before(currentDate) && order.get(i).getProvider() != null && (order.get(i).getProvider().isEmpty()))
             {
                 PastOrder pastOrder = new PastOrder(order.get(i), "canceled");
                 pastOrderRepo.save(pastOrder);
