@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Date;
 
 @Entity
 @Table(name="past_orders")
@@ -13,13 +14,33 @@ public class PastOrder {
 
     private String product_name;
     private String description;
-    private int max_price;
+    private double max_price;
     private int count;
-    private String expected_date;
-    private int real_price;
-    private String real_date;
+    private Date expected_date;
+    private double real_price;
+    private Date real_date;
     private String status;
     private String author;
+
+    private String provider;
+
+    public PastOrder(){
+
+    }
+
+    public PastOrder(Order order) {
+        this.id = order.getId();
+        this.product_name = order.getProduct_name();
+        this.description = order.getDescription();
+        this.max_price = order.getMax_price();
+        this.count = order.getCount();
+        this.expected_date = order.getExpected_date();
+        this.real_price = order.getReal_price();
+        this.real_date = order.getReal_date();
+        this.status = "canceled";
+        this.author = order.getAuthor();
+        this.provider = order.getProvider();
+    }
 
     public long getId() {
         return id;
@@ -45,11 +66,11 @@ public class PastOrder {
         this.description = description;
     }
 
-    public int getMax_price() {
+    public double getMax_price() {
         return max_price;
     }
 
-    public void setMax_price(int max_price) {
+    public void setMax_price(double max_price) {
         this.max_price = max_price;
     }
 
@@ -61,27 +82,27 @@ public class PastOrder {
         this.count = count;
     }
 
-    public String getExpected_date() {
+    public Date getExpected_date() {
         return expected_date;
     }
 
-    public void setExpected_date(String expected_date) {
+    public void setExpected_date(Date expected_date) {
         this.expected_date = expected_date;
     }
 
-    public int getReal_price() {
+    public double getReal_price() {
         return real_price;
     }
 
-    public void setReal_price(int real_price) {
+    public void setReal_price(double real_price) {
         this.real_price = real_price;
     }
 
-    public String getReal_date() {
+    public Date getReal_date() {
         return real_date;
     }
 
-    public void setReal_date(String real_date) {
+    public void setReal_date(Date real_date) {
         this.real_date = real_date;
     }
 
@@ -99,5 +120,13 @@ public class PastOrder {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 }

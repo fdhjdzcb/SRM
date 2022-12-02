@@ -35,7 +35,7 @@
                     <th>Ожидаемая</th>
                     <th>Реальная</th>
                 </tr>
-                <tr th:if="${el.is_approved}" th:each="el : ${order}">
+                <tr th:if="${el.is_approved}" th:each="el : ${order}" id="row">
                     <td th:text="${el.product_name}"/>
                     <td th:text="${el.description}"/>
                     <td th:text="${el.count}"/>
@@ -44,7 +44,7 @@
                     <td th:if="${el.real_price}" th:text="${el.real_price}"/>
                     <td th:if="not ${el.real_price}" th:text="-----"/>
 
-                    <td th:text="${el.expected_date}"/>
+                    <td id="expected_date" th:text="${el.expected_date}"/>
                     <td th:if="${el.real_date}" th:text="${el.real_date}"/>
                     <td th:if="not ${el.real_date}" th:text="-----"/>
 
@@ -58,6 +58,15 @@
     </div>
 
 </div>
+
+<script>
+    let currDate = new Date().toISOString().split('T')[0];
+    let leftDays = document.getElementById("expected_date").textContent - currDate;
+    if (leftDays < 3)
+        document.getElementById("row").style.setProperty("background", "red");
+    else
+        document.getElementById("row").style.setProperty("background", "aqua");
+</script>
 
 <div th:insert="blocks/scripts_footer :: scripts_footer"></div>
 </body>

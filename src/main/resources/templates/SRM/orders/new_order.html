@@ -27,45 +27,33 @@
                 <div class="col-12">
                     <label for="product_name" class="form-label">Название товара</label>
                     <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Название"
-                           required="">
-                    <div class="invalid-feedback">
-                        Введите название товара.
-                    </div>
+                           required="" maxlength="100">
                 </div>
 
                 <div class="col-12">
                     <label for="description" class="form-label">Краткое описание товара</label>
                     <textarea class="form-control" id="description" name="description" placeholder="Описание..."
-                              required=""></textarea>
-                    <div class="invalid-feedback">
-                        Введите описание товара.
-                    </div>
+                              required="" maxlength="100"></textarea>
                 </div>
 
                 <div class="col-12">
                     <label for="count" class="form-label">Количество</label>
-                    <input type="number" min="1" step="1" class="form-control" id="count" name="count" placeholder="10"
+                    <input type="number" min="1" step="1" max="1000" class="form-control" id="count" name="count"
+                           placeholder="10"
                            required="">
-                    <div class="invalid-feedback">
-                        Введите количество.
-                    </div>
                 </div>
 
                 <div class="col-12">
                     <label for="max_price" class="form-label">Цена, ₽</label>
-                    <input type="number" min="0" step="0.01" class="form-control" id="max_price" name="max_price"
+                    <input type="number" min="0" step="0.01" max="100000000" class="form-control" id="max_price"
+                           name="max_price"
                            placeholder="1000" required="">
-                    <div class="invalid-feedback">
-                        Введите стоимость.
-                    </div>
                 </div>
 
                 <div class="col-12">
                     <label for="expected_date" class="form-label">Ожидаемая дата доставки</label>
-                    <input type="date" class="form-control" id="expected_date" name="expected_date" required="">
-                    <div class="invalid-feedback">
-                        Введите дату.
-                    </div>
+                    <input type="date"  min="1899-01-01" onfocus="this.min=new Date().toISOString().split('T')[0]" class="form-control" id="expected_date"
+                           name="expected_date" required="">
                 </div>
 
             </div>

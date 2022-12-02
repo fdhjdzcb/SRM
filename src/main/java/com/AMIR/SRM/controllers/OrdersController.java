@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import com.AMIR.SRM.domain.Provider;
 
 import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 @Controller
 @RequestMapping("srm/orders/")
@@ -40,9 +44,9 @@ public class OrdersController {
     public String add(
             @RequestParam String product_name,
             @RequestParam String description,
-            @RequestParam int max_price,
+            @RequestParam double max_price,
             @RequestParam int count,
-            @RequestParam String expected_date,
+            @RequestParam Date expected_date,
             Map<String, Object> model) {
 
         Order order = new Order(product_name, description, max_price, count, expected_date);
@@ -59,13 +63,24 @@ public class OrdersController {
         model.addAttribute("role", authentication.getAuthorities().toString());
 
         List<Order> order = orderRepo.findAll();
+        Date currentDate = new Date(System.currentTimeMillis());
+        for (int i = 0; i < order.size(); i++)
+        {
+            if (order.get(i).getExpected_date().before(currentDate) && order.get(i).getProvider().isEmpty())
+            {
+                PastOrder pastOrder = new PastOrder(order.get(i));
+                pastOrderRepo.save(pastOrder);
+                orderRepo.delete(order.get(i));
+            }
+        }
         model.addAttribute("order", order);
         return "SRM/orders/current_orders";
     }
 
     @GetMapping("current_orders/{order}")
-    public String orderProvider(@PathVariable Order order, Model model){
+    public String orderProvider(@PathVariable Order order, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         model.addAttribute("title", "Выбор поставщика");
         model.addAttribute("username", authentication.getName());
         model.addAttribute("role", authentication.getAuthorities().toString());
@@ -78,13 +93,15 @@ public class OrdersController {
             int j = random.nextInt(10);
             providers[i] = new Provider();
             providers[i].setName("Поставщик " + (i + 1));
-            providers[i].setNew_price((random.nextInt(10) + 91) * order.getMax_price() / 100);
+            providers[i].setNew_price(Math.ceil((random.nextDouble(10.0) + 91) * order.getMax_price()) / 100);
             providers[i].setNew_date(order.getExpected_date());
-            /*Calendar cal = Calendar.getInstance();
-                LocalDate date = LocalDate.parse(order.getExpected_date());
-                cal.setTime(java.sql.Date.valueOf(date));
-                cal.add(Calendar.DATE, -random.nextInt(6)); //todo может быть такое что доставят раньше сегодняшнего
-                order.setReal_date(cal.toString());*/
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(order.getExpected_date());
+            Date currentDate = new Date(System.currentTimeMillis());
+            long diffDate = (order.getExpected_date().getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
+            cal.add(Calendar.DATE, -random.nextInt((int)diffDate));
+            providers[i].setNew_date(new java.sql.Date(cal.getTimeInMillis()));
+
             if (j < 5) {
                 providers[i].setNew_count(order.getCount()); //01234
             } else if (j > 7) {
@@ -103,16 +120,14 @@ public class OrdersController {
     public String providerSave(
             @RequestParam String provider_name,
             @RequestParam String[] providers_names,
-            @RequestParam String[] providers_dates,
+            @RequestParam Date[] providers_dates,
             @RequestParam int[] providers_counts,
-            @RequestParam int[] providers_prices,
+            @RequestParam double[] providers_prices,
             @RequestParam("orderId") Order order
     ) {
         order.setProvider(provider_name);
-        for (int i = 0; i < providers_names.length; i++)
-        {
-            if (Objects.equals(providers_names[i], provider_name))
-            {
+        for (int i = 0; i < providers_names.length; i++) {
+            if (Objects.equals(providers_names[i], provider_name)) {
                 order.setReal_price(providers_prices[i]);
                 order.setReal_date(providers_dates[i]);
                 order.setCount(providers_counts[i]);
@@ -152,8 +167,8 @@ public class OrdersController {
             @RequestParam String product_name,
             @RequestParam String description,
             @RequestParam int count,
-            @RequestParam int max_price,
-            @RequestParam String expected_date,
+            @RequestParam double max_price,
+            @RequestParam Date expected_date,
             @RequestParam("orderId") Order order
     ) {
         order.setProduct_name(product_name);
