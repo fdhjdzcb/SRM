@@ -4,7 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name="orders")
@@ -14,18 +14,20 @@ public class Order {
     private long id;
     private String product_name;
     private String description;
-    private int max_price;
+    private double max_price;
     private int count;
-    private String expected_date;
-    private int real_price;
-    private String real_date;
+    private Date expected_date;
+    private double real_price;
+    private Date real_date;
     private String author;
     private boolean is_approved;
+
+    private String provider;
     public Order(){
 
     }
 
-    public Order(String product_name, String description, int max_price, int count, String expected_date) {
+    public Order(String product_name, String description, double max_price, int count, Date expected_date) {
         this.product_name = product_name;
         this.description = description;
         this.max_price = max_price;
@@ -34,6 +36,16 @@ public class Order {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         this.author = currentPrincipalName;
+        this.is_approved = false;
+    }
+
+    public Order(PastOrder pastOrder) {
+        this.product_name = pastOrder.getProduct_name();
+        this.description = pastOrder.getDescription();
+        this.max_price = pastOrder.getMax_price();
+        this.count = pastOrder.getCount();
+        this.expected_date = pastOrder.getExpected_date();
+        this.author = pastOrder.getAuthor();
         this.is_approved = false;
     }
 
@@ -61,11 +73,11 @@ public class Order {
         this.description = description;
     }
 
-    public int getMax_price() {
+    public double getMax_price() {
         return max_price;
     }
 
-    public void setMax_price(int max_price) {
+    public void setMax_price(double max_price) {
         this.max_price = max_price;
     }
 
@@ -77,27 +89,27 @@ public class Order {
         this.count = count;
     }
 
-    public String getExpected_date() {
+    public Date getExpected_date() {
         return expected_date;
     }
 
-    public void setExpected_date(String expected_date) {
+    public void setExpected_date(Date expected_date) {
         this.expected_date = expected_date;
     }
 
-    public int getReal_price() {
+    public double getReal_price() {
         return real_price;
     }
 
-    public void setReal_price(int real_price) {
+    public void setReal_price(double real_price) {
         this.real_price = real_price;
     }
 
-    public String getReal_date() {
+    public Date getReal_date() {
         return real_date;
     }
 
-    public void setReal_date(String real_date) {
+    public void setReal_date(Date real_date) {
         this.real_date = real_date;
     }
 
@@ -115,5 +127,13 @@ public class Order {
 
     public void setIs_approved(boolean is_approved) {
         this.is_approved = is_approved;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 }
