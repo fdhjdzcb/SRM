@@ -58,5 +58,4 @@ public class MainController {
         model.addAttribute("title", "Ошибка");
         return "error";
     }*/
-
 }
