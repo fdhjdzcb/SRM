@@ -54,6 +54,8 @@
                     <td th:width="100px" th:if="${el.getProvider()}" th:text="${el.getProvider()}"></td>
 
                     <td th:width="100px"><form th:action="@{/srm/orders/current_orders/finishing/{id}(id=${el.id})}"><button th:if="${el.getReal_date()}" class="button-30" onclick="return finishOrder()">Завершить</button></form><form th:action="@{/srm/orders/current_orders/cancelling/{id}(id=${el.id})}"><button class="button-30" onclick="return cancelOrder()">Отменить</button></form></td>
+
+                    <td th:width="50px" class="border-0"><form th:action="@{/pdf/generate/{id}(id=${el.id})}"><button th:if="${el.getProvider()}" class="button-30">Договор</button></form></td>
                 </tr>
                 </tbody>
             </table>
