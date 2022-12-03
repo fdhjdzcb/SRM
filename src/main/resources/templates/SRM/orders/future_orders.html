@@ -18,7 +18,7 @@
         <div th:insert="blocks/SRMmenu :: srmmenu"></div>
     </div>
     <div class="col text-center p-2">
-        <h1>Текущие заказы</h1>
+        <h1>Заказы к согласованию</h1>
         <div class="container">
             <table class="iksweb">
                 <tbody>
@@ -35,7 +35,7 @@
                     <td th:text="${el.count}"/>
                     <td th:text="${el.max_price}"/>
                     <td th:text="${el.expected_date}"/>
-                    <td th:width="100px"><form th:action="@{/srm/orders/future_orders/{id}(id=${el.id})}"><button class="button-30" onclick="approveOrder()">Согласовать</button></form><form th:action="@{/srm/orders/current_orders/cancelling/{id}(id=${el.id})}"><button class="button-30" onclick="cancelOrder()">Отказать</button></form></td>
+                    <td th:width="100px"><form th:action="@{/srm/orders/future_orders/{id}(id=${el.id})}"><button class="button-30">Согласовать</button></form><form th:action="@{/srm/orders/current_orders/cancelling/{id}(id=${el.id})}"><button class="button-30" onclick="return cancelOrder()">Отказать</button></form></td>
                 </tr>
                 </tbody>
             </table>
@@ -46,7 +46,7 @@
 
 <script>
     function cancelOrder() {
-        confirm("Вы уверены, что хотите отменить заказ?")
+        return confirm("Вы уверены, что хотите отменить заказ?")
     }
 </script>
 

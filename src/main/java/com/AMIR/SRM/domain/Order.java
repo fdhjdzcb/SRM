@@ -39,6 +39,16 @@ public class Order {
         this.is_approved = false;
     }
 
+    public Order(PastOrder pastOrder) {
+        this.product_name = pastOrder.getProduct_name();
+        this.description = pastOrder.getDescription();
+        this.max_price = pastOrder.getMax_price();
+        this.count = pastOrder.getCount();
+        this.expected_date = pastOrder.getExpected_date();
+        this.author = pastOrder.getAuthor();
+        this.is_approved = false;
+    }
+
     public long getId() {
         return id;
     }

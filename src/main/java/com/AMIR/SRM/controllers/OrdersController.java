@@ -170,6 +170,13 @@ public class OrdersController {
         model.addAttribute("role", authentication.getAuthorities().toString());
 
         List<Order> order = orderRepo.findAll();
+        Collections.sort(order, new Comparator<Order>() {
+            public int compare(Order c1, Order c2) {
+                if (c1.getExpected_date().before(c2.getExpected_date())) return -1;
+                if (c1.getExpected_date().after(c2.getExpected_date())) return 1;
+                return 0;
+            }});
+
         model.addAttribute("order", order);
         return "SRM/orders/future_orders";
     }
@@ -214,8 +221,43 @@ public class OrdersController {
         model.addAttribute("role", authentication.getAuthorities().toString());
 
         List<PastOrder> pastOrder = pastOrderRepo.findAll();
+        Collections.sort(pastOrder, new Comparator<PastOrder>() {
+            public int compare(PastOrder c1, PastOrder c2) {
+                if (c1.getExpected_date().before(c2.getExpected_date())) return -1;
+                if (c1.getExpected_date().after(c2.getExpected_date())) return 1;
+                return 0;
+            }});
+
         model.addAttribute("pastOrder", pastOrder);
         return "SRM/orders/completed_orders";
+    }
+
+    @GetMapping("finished_orders/repeating/{pastOrder}")
+    public String orderRepeatForm(@PathVariable PastOrder pastOrder, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("title", "Повторение заказа");
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities().toString());
+        model.addAttribute("order", pastOrder);
+
+        Order order = new Order(pastOrder);
+        orderRepo.save(order);
+
+        return "redirect:/srm/orders/future_orders";
+    }
+
+    @GetMapping("canceled_orders/repeating/{pastOrder}")
+    public String orderCancelRepeatForm(@PathVariable PastOrder pastOrder, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("title", "Повторение заказа");
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities().toString());
+        model.addAttribute("order", pastOrder);
+
+        Order order = new Order(pastOrder);
+        orderRepo.save(order);
+
+        return "redirect:/srm/orders/future_orders";
     }
 
     @GetMapping("canceled_orders")
@@ -226,6 +268,13 @@ public class OrdersController {
         model.addAttribute("role", authentication.getAuthorities().toString());
 
         List<PastOrder> pastOrder = pastOrderRepo.findAll();
+        Collections.sort(pastOrder, new Comparator<PastOrder>() {
+            public int compare(PastOrder c1, PastOrder c2) {
+                if (c1.getExpected_date().before(c2.getExpected_date())) return -1;
+                if (c1.getExpected_date().after(c2.getExpected_date())) return 1;
+                return 0;
+            }});
+
         model.addAttribute("pastOrder", pastOrder);
         return "SRM/orders/canceled_orders";
     }

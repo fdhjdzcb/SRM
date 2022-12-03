@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="" th:href="@{/css/SRMstyle.css}"/>
     <link rel="stylesheet" href="" th:href="@{/css/Table.css}"/>
+    <link rel="stylesheet" href="" th:href="@{/css/Buttons.css}"/>
 </head>
 <body>
 <div class="row">
@@ -27,7 +28,7 @@
                     <th rowspan="2">Кол-во</th>
                     <th colspan="2">Цена</th>
                     <th colspan="2">Дата</th>
-                    <th rowspan="2">Статус</th>
+                    <th rowspan="2">Поставщик</th>
                 </tr>
                 <tr>
                     <th>Ожидаемая</th>
@@ -40,10 +41,12 @@
                     <td th:text="${el.description}"/>
                     <td th:text="${el.count}"/>
                     <td th:text="${el.max_price}"/>
-                    <td>-----</td>
+                    <td th:text="${el.real_price}"/>
                     <td th:text="${el.expected_date}"/>
-                    <td>-----</td>
-                    <td th:text="${el.status}"/>
+                    <td th:text="${el.real_date}"/>
+                    <td th:width="100px" th:if="not ${el.getProvider()}" th:text="-----"/>
+                    <td th:width="100px" th:if="${el.getProvider()}" th:text="${el.getProvider()}"/>
+                    <td th:width="100px"><form th:action="@{/srm/orders/canceled_orders/repeating/{id}(id=${el.id})}"><button class="button-30">Повторить</button></form></td>
                 </tr>
                 </tbody>
             </table>
