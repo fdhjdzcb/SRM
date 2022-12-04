@@ -23,14 +23,15 @@
         <h1>Заказы к согласованию</h1>
         <div class="container">
             <input class="form-control mb-3 w-25" type="text" placeholder="Поиск" id="search-text" onkeyup="tableSearch()">
-            <table class="iksweb" id="info-table">
+            <table class="table" id="info-table">
                 <tbody>
                 <tr>
                     <th onclick="sortTable(0)">Название</th>
                     <th onclick="sortTable(1)">Описание</th>
-                    <th onclick="sortTable(2)">Кол-во</th>
+                    <th nowrap="" onclick="sortTable(2)">Кол-во</th>
                     <th onclick="sortTable(3)">Ожидаемая цена</th>
                     <th onclick="sortTable(4)">Ожидаемая дата</th> <!--todo не работает потому что обычно здесь реальная цена-->
+                    <th>Согласовать/отказать</th>
                 </tr>
                 <tr th:if="${not el.is_approved}" th:each="el : ${order}">
                     <td th:text="${el.product_name}"/>

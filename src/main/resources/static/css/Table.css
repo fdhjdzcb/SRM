@@ -1,3 +1,4 @@
+/*
 table.iksweb {
     text-decoration: none;
     border-collapse: collapse;
@@ -10,6 +11,14 @@ table.iksweb th {
     font-size: 18px;
     color: #000000;
     background-color: #a2f2c8;
+    cursor: pointer;
+}
+
+table.iksweb th:focus {
+    font-weight: 500;
+    font-size: 18px;
+    color: #000000;
+    background-color: aqua;
     cursor: pointer;
 }
 
@@ -43,3 +52,39 @@ table.iksweb .change {
     background-color: white;
 }
 
+*/
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 5px solid #fff;
+    border-top: 5px solid #fff;
+    border-bottom: 3px solid #fff;
+    border-collapse: collapse;
+    outline: 3px solid #ffd300;
+    font-size: 15px;
+    background: #fff!important;
+}
+.table th {
+    font-weight: bold;
+    padding: 7px;
+    background: #ffd300;
+    border: none;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 15px;
+    border-top: 3px solid #fff;
+    border-bottom: 3px solid #ffd300;
+    cursor: pointer;
+    height: 60px;
+}
+.table td {
+    padding: 7px;
+    border: none;
+    border-top: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    font-size: 15px;
+}
+.table tbody tr:nth-child(even){
+    background: #f8f8f8!important;
+}

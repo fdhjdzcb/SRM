@@ -24,17 +24,20 @@
         <h1>Текущие заказы</h1>
         <div class="container">
             <input class="form-control mb-3 w-25" type="text" placeholder="Поиск" id="search-text" onkeyup="tableSearch()">
-            <table class="iksweb" id="info-table">
+            <table class="table" id="info-table">
                 <tbody>
                 <tr>
                     <th onclick="sortTable(0)">Название</th>
                     <th onclick="sortTable(1)">Описание</th>
-                    <th onclick="sortTable(2)">Кол-во</th>
+                    <th nowrap="" onclick="sortTable(2)">Кол-во</th>
                     <th onclick="sortTable(3)">Ожидаемая цена</th>
                     <th onclick="sortTable(4)">Реальная цена</th>
                     <th onclick="sortTable(5)">Ожидаемая дата</th>
                     <th onclick="sortTable(6)">Реальная дата</th>
                     <th onclick="sortTable(7)">Поставщик</th>
+                    <th>Завершить/отменить</th>
+                    <th>Скачать</th>
+
                 </tr>
                 <tr th:if="${el.is_approved}" th:each="el : ${order}" id="row">
                     <td th:text="${el.product_name}"/>
@@ -50,7 +53,7 @@
                     <td th:if="not ${el.real_date}" th:text="-----"/>
 
                     <td th:width="100px" th:if="not ${el.getProvider()}"><form th:action="@{/srm/orders/current_orders/{id}(id=${el.id})}"><button class="button-30" type="submit">Выбрать</button></form></td>
-                    <td th:width="100px" th:if="${el.getProvider()}" th:text="${el.getProvider()}"></td>
+                    <td nowrap="" th:width="100px" th:if="${el.getProvider()}" th:text="${el.getProvider()}"></td>
 
                     <td th:width="100px"><form th:action="@{/srm/orders/current_orders/finishing/{id}(id=${el.id})}"><button th:if="${el.getReal_date()}" class="button-30" onclick="return finishOrder()">Завершить</button></form><form th:action="@{/srm/orders/current_orders/cancelling/{id}(id=${el.id})}"><button class="button-30" onclick="return cancelOrder()">Отменить</button></form></td>
 

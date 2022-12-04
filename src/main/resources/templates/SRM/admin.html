@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="" th:href="@{/css/SRMstyle.css}"/>
     <link rel="stylesheet" href="" th:href="@{/css/Table.css}"/>
+    <link rel="stylesheet" href="" th:href="@{/css/Buttons.css}"/>
 </head>
 <body>
 <div class="row">
@@ -19,18 +20,19 @@
     <div class="col text-center p-2">
         <h1>Админ-панель</h1>
         <div class="container">
-            <table class="iksweb">
+            <table class="table">
                 <tbody>
                 <tr>
                     <th>Логин</th>
                     <th>Почта</th>
                     <th>Роль</th>
+                    <th></th>
                 </tr>
                 <tr th:each="el : ${users}" th:if="${el.getRoles().iterator().next().toString() != 'ADMIN'}">
                     <td th:text="${el.username}"/>
                     <td th:text="${el.email}"/>
                     <td th:text="${el.getRoles().iterator().next().toString()}"/>
-                    <td th:width="100px"><a th:href="@{/srm/admin/{id}(id=${el.id})}">Изменить</a></td>
+                    <td th:width="100px"><form th:action="@{/srm/admin/{id}(id=${el.id})}"><button class="button-30">Изменить</button></form></td>
                 </tr>
                 </tbody>
             </table>
