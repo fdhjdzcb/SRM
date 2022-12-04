@@ -117,7 +117,7 @@ public class OrdersController {
                 providers[i].setNew_count(order.getCount() * (100 - random.nextInt(49) + 51) / 1000); //567
             }
             if (providers[i].getNew_count() == 0) providers[i].setNew_count(1);
-        }//todo как-то переносить это в model и выводить
+        }
         model.addAttribute("provider", providers);
 
         return "SRM/orders/provider";

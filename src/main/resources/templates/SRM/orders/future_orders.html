@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="" th:href="@{/css/SRMstyle.css}"/>
     <link rel="stylesheet" href="" th:href="@{/css/Table.css}"/>
     <link rel="stylesheet" href="" th:href="@{/css/Buttons.css}"/>
+    <script type="text/javascript" th:src="@{/js/tableSearch.js}"></script>
+    <script type="text/javascript" th:src="@{/js/sortTable.js}"></script>
 </head>
 <body>
 <div class="row">
@@ -20,14 +22,15 @@
     <div class="col text-center p-2">
         <h1>Заказы к согласованию</h1>
         <div class="container">
-            <table class="iksweb">
+            <input class="form-control mb-3 w-25" type="text" placeholder="Поиск" id="search-text" onkeyup="tableSearch()">
+            <table class="iksweb" id="info-table">
                 <tbody>
                 <tr>
-                    <th>Название</th>
-                    <th>Описание</th>
-                    <th>Кол-во</th>
-                    <th>Ожидаемая цена</th>
-                    <th>Ожидаемая дата</th>
+                    <th onclick="sortTable(0)">Название</th>
+                    <th onclick="sortTable(1)">Описание</th>
+                    <th onclick="sortTable(2)">Кол-во</th>
+                    <th onclick="sortTable(3)">Ожидаемая цена</th>
+                    <th onclick="sortTable(4)">Ожидаемая дата</th> <!--todo не работает потому что обычно здесь реальная цена-->
                 </tr>
                 <tr th:if="${not el.is_approved}" th:each="el : ${order}">
                     <td th:text="${el.product_name}"/>

@@ -10,6 +10,7 @@ table.iksweb th {
     font-size: 18px;
     color: #000000;
     background-color: #a2f2c8;
+    cursor: pointer;
 }
 
 table.iksweb td {

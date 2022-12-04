@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="" th:href="@{/css/SRMstyle.css}"/>
     <link rel="stylesheet" href="" th:href="@{/css/Table.css}"/>
     <link rel="stylesheet" href="" th:href="@{/css/Buttons.css}"/>
+    <script type="text/javascript" th:src="@{/js/tableSearch.js}"></script>
+    <script type="text/javascript" th:src="@{/js/sortTable.js}"></script>
 </head>
 <body>
 <div class="row">
@@ -21,21 +23,18 @@
     <div class="col text-center p-2">
         <h1>Завершённые заказы</h1>
         <div class="container">
-            <table class="iksweb">
+            <input class="form-control mb-3 w-25" type="text" placeholder="Поиск" id="search-text" onkeyup="tableSearch()">
+            <table class="iksweb" id="info-table">
                 <tbody>
                 <tr>
-                    <th rowspan="2">Название</th>
-                    <th rowspan="2">Описание</th>
-                    <th rowspan="2">Кол-во</th>
-                    <th colspan="2">Цена</th>
-                    <th colspan="2">Дата</th>
-                    <th rowspan="2">Поставщик</th>
-                </tr>
-                <tr>
-                    <th>Ожидаемая</th>
-                    <th>Реальная</th>
-                    <th>Ожидаемая</th>
-                    <th>Реальная</th>
+                    <th onclick="sortTable(0)">Название</th>
+                    <th onclick="sortTable(1)">Описание</th>
+                    <th onclick="sortTable(2)">Кол-во</th>
+                    <th onclick="sortTable(3)">Ожидаемая цена</th>
+                    <th onclick="sortTable(4)">Реальная цена</th>
+                    <th onclick="sortTable(5)">Ожидаемая дата</th>
+                    <th onclick="sortTable(6)">Реальная дата</th>
+                    <th onclick="sortTable(7)">Поставщик</th>
                 </tr>
                 <tr th:if="${el.status == 'completed'}" th:each="el : ${pastOrder}">
                     <td th:text="${el.product_name}"/>
