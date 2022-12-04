@@ -14,6 +14,8 @@ public class User {
     private String email;
     private boolean active;
     private String activationCode;
+    private String name;
+    private String surname;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
     @CollectionTable(name="roles", joinColumns=@JoinColumn(name = "id"))
@@ -78,5 +80,21 @@ public class User {
 
     public String getStrRole() {
         return role.iterator().next().toString();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }

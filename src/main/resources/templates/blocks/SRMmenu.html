@@ -51,7 +51,7 @@
                 <strong th:text="${username}">Ошибка</strong>
             </a>
             <ul class="dropdown-menu text-small shadow">
-                <li><a class="dropdown-item" href="#">Профиль</a></li>
+                <li><a class="dropdown-item" th:href="@{srm/profile/{id}(id = ${username})}">Профиль</a></li>
                 <li>
                     <hr class="dropdown-divider">
                     <form action="" th:action="@{/logout}" method="post">
