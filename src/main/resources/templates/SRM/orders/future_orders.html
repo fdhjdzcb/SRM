@@ -19,9 +19,8 @@
     <div class="flex-shrink-0 p-4 bg-white col-xs" style="width: 200px;">
         <div th:insert="blocks/SRMmenu :: srmmenu"></div>
     </div>
-
     <div class="col text-center p-2">
-        <h1>Завершённые заказы</h1>
+        <h1>Заказы к согласованию</h1>
         <div class="container">
             <input class="form-control mb-3 w-25" type="text" placeholder="Поиск" id="search-text" onkeyup="tableSearch()">
             <table class="table" id="info-table">
@@ -31,23 +30,16 @@
                     <th onclick="sortTable(1)">Описание</th>
                     <th nowrap="" onclick="sortTable(2)">Кол-во</th>
                     <th onclick="sortTable(3)">Ожидаемая цена</th>
-                    <th onclick="sortTable(4)">Реальная цена</th>
-                    <th onclick="sortTable(5)">Ожидаемая дата</th>
-                    <th onclick="sortTable(6)">Реальная дата</th>
-                    <th onclick="sortTable(7)">Поставщик</th>
-                    <th></th>
+                    <th onclick="sortTable(4)">Ожидаемая дата</th> <!--todo не работает потому что обычно здесь реальная цена-->
+                    <th>Согласовать/отказать</th>
                 </tr>
-                <tr th:if="${el.status == 'completed'}" th:each="el : ${pastOrder}">
+                <tr th:if="${not el.is_approved}" th:each="el : ${order}">
                     <td th:text="${el.product_name}"/>
                     <td th:text="${el.description}"/>
                     <td th:text="${el.count}"/>
                     <td th:text="${el.max_price}"/>
-                    <td th:text="${el.real_price}"/>
                     <td th:text="${el.expected_date}"/>
-                    <td th:text="${el.real_date}"/>
-                    <td th:width="100px" th:if="not ${el.getProvider()}" th:text="-----"/>
-                    <td nowrap="" th:width="100px" th:if="${el.getProvider()}" th:text="${el.getProvider()}"/>
-                    <td th:width="100px"><form th:action="@{/srm/orders/finished_orders/repeating/{id}(id=${el.id})}"><button class="button-30">Повторить</button></form></td>
+                    <td th:width="100px"><form th:action="@{/srm/orders/future_orders/{id}(id=${el.id})}"><button class="button-30">Согласовать</button></form><form th:action="@{/srm/orders/current_orders/cancelling/{id}(id=${el.id})}"><button class="button-30" onclick="return cancelOrder()">Отказать</button></form></td>
                 </tr>
                 </tbody>
             </table>
@@ -56,6 +48,11 @@
 
 </div>
 
+<script>
+    function cancelOrder() {
+        return confirm("Вы уверены, что хотите отменить заказ?")
+    }
+</script>
 
 <div th:insert="blocks/scripts_footer :: scripts_footer"></div>
 </body>

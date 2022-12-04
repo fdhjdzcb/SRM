@@ -14,11 +14,13 @@ public class User {
     private String email;
     private boolean active;
     private String activationCode;
+    private String name;
+    private String surname;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
-    @CollectionTable(name="roles", joinColumns=@JoinColumn(name = "role_id"))
+    @CollectionTable(name="roles", joinColumns=@JoinColumn(name = "id"))
     @Enumerated(EnumType.STRING)
-    private Set<Role> role_name;
+    private Set<Role> role;
 
     public long getId() {
         return id;
@@ -69,10 +71,30 @@ public class User {
     }
 
     public Set<Role> getRoles() {
-        return role_name;
+        return role;
     }
 
-    public void setRoles(Set<Role> role_name) {
-        this.role_name = role_name;
+    public void setRoles(Set<Role> role) {
+        this.role = role;
+    }
+
+    public String getStrRole() {
+        return role.iterator().next().toString();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }

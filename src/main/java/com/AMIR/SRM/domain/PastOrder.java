@@ -1,17 +1,17 @@
 package com.AMIR.SRM.domain;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Date;
 
 @Entity
-@Table(name="orders")
-public class Order {
+@Table(name="past_orders")
+public class PastOrder {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private String product_name;
     private String description;
     private double max_price;
@@ -19,34 +19,41 @@ public class Order {
     private Date expected_date;
     private double real_price;
     private Date real_date;
+    private String status;
     private String author;
-    private boolean is_approved;
 
     private String provider;
-    public Order(){
+
+    public PastOrder(){
 
     }
 
-    public Order(String product_name, String description, double max_price, int count, Date expected_date) {
-        this.product_name = product_name;
-        this.description = description;
-        this.max_price = max_price;
-        this.count = count;
-        this.expected_date = expected_date;
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        this.author = currentPrincipalName;
-        this.is_approved = false;
+    public PastOrder(Order order) {
+        this.id = order.getId();
+        this.product_name = order.getProduct_name();
+        this.description = order.getDescription();
+        this.max_price = order.getMax_price();
+        this.count = order.getCount();
+        this.expected_date = order.getExpected_date();
+        this.real_price = order.getReal_price();
+        this.real_date = order.getReal_date();
+        this.status = "canceled";
+        this.author = order.getAuthor();
+        this.provider = order.getProvider();
     }
 
-    public Order(PastOrder pastOrder) {
-        this.product_name = pastOrder.getProduct_name();
-        this.description = pastOrder.getDescription();
-        this.max_price = pastOrder.getMax_price();
-        this.count = pastOrder.getCount();
-        this.expected_date = pastOrder.getExpected_date();
-        this.author = pastOrder.getAuthor();
-        this.is_approved = false;
+    public PastOrder(Order order, String status) {
+        this.id = order.getId();
+        this.product_name = order.getProduct_name();
+        this.description = order.getDescription();
+        this.max_price = order.getMax_price();
+        this.count = order.getCount();
+        this.expected_date = order.getExpected_date();
+        this.real_price = order.getReal_price();
+        this.real_date = order.getReal_date();
+        this.status = status;
+        this.author = order.getAuthor();
+        this.provider = order.getProvider();
     }
 
     public long getId() {
@@ -113,20 +120,20 @@ public class Order {
         this.real_date = real_date;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getAuthor() {
         return author;
     }
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public boolean isIs_approved() {
-        return is_approved;
-    }
-
-    public void setIs_approved(boolean is_approved) {
-        this.is_approved = is_approved;
     }
 
     public String getProvider() {
