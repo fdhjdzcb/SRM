@@ -13,13 +13,13 @@
     <link rel="stylesheet" href="" th:href="@{/css/Buttons.css}"/>
     <script type="text/javascript" th:src="@{/js/tableSearch.js}"></script>
     <script type="text/javascript" th:src="@{/js/sortTable.js}"></script>
+    <link rel="stylesheet" href="" th:href="@{/css/Sidebar.css}"/>
+    <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/sideBar.js}"></script>
 </head>
 <body>
-<div class="row">
-    <div class="flex-shrink-0 p-4 bg-white col-xs" style="width: 200px;">
-        <div th:insert="blocks/SRMmenu :: srmmenu"></div>
-    </div>
-    <div class="col text-center p-2">
+<div th:insert="blocks/SRMmenu :: srmmenu"></div>
+<div class="text-center p-2">
         <h1>Заказы к согласованию</h1>
         <div class="container">
             <input class="form-control mb-3 w-25" type="text" placeholder="Поиск" id="search-text" onkeyup="tableSearch()">

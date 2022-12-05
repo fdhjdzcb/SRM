@@ -10,13 +10,12 @@
 
     <link rel="stylesheet" href="" th:href="@{/css/SRMstyle.css}"/>
     <link rel="stylesheet" href="" th:href="@{/css/Table.css}"/>
+    <link rel="stylesheet" href="" th:href="@{/css/Sidebar.css}"/>
+    <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/sideBar.js}"></script>
 </head>
 <body>
-<div class="row">
-    <div class="flex-shrink-0 p-4 bg-white col-xs" style="width: 200px;">
-        <div th:insert="blocks/SRMmenu :: srmmenu"></div>
-    </div>
-
+<div th:insert="blocks/SRMmenu :: srmmenu"></div>
     <div class="container text-center p-2 w-50">
         <h1>Выбор поставщика</h1>
         <table class="table">
