@@ -73,11 +73,11 @@
             <form th:action="@{/login}" method="post">
                 <div class="form-group">
                     <label for="username">Логин</label>
-                    <input id="username" type="text" name="username" required="required"/>
+                    <input id="username" type="text" name="username" minlength="6" maxlength="50" required="required"/>
                 </div>
                 <div class="form-group">
                     <label for="password">Пароль</label>
-                    <input id="password" type="password" name="password" required="required"/>
+                    <input id="password" type="password" name="password" minlength="8" maxlength="30" required="required"/>
                 </div>
                 <div class="form-group">
                     <a href="./registration" class="nav-link px-2 link-secondary">Зарегистрироваться</a>

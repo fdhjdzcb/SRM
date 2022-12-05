@@ -24,25 +24,25 @@
             <form th:action="@{/registration}" method="post">
                 <div class="form-group">
                     <label for="username">Логин</label>
-                    <input id="username" type="text" name="username" minlength="6" required="required"/>
+                    <input id="username" type="text" name="username" minlength="6" maxlength="50" required="required"/>
                 </div>
                 <div class="form-group">
                     <label for="password">Пароль</label>
-                    <input id="password" type="password" name="password" minlength="8" required="required"/>
+                    <input id="password" type="password" name="password" minlength="8" maxlength="30" required="required"/>
                 </div>
 
                 <div class="form-group">
                     <label for="name">Имя</label>
-                    <input id="name" type="text" name="name" minlength="3" required="required"/>
+                    <input id="name" type="text" name="name" minlength="3" maxlength="20" required="required"/>
                 </div>
                 <div class="form-group">
                     <label for="surname">Фамилия</label>
-                    <input id="surname" type="text" name="surname" minlength="3" required="required"/>
+                    <input id="surname" type="text" name="surname" minlength="3" maxlength="20" required="required"/>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" name="email" required="required"/>
+                    <input id="email" type="email" name="email" maxlength="50" required="required"/>
                 </div>
                 <div class="form-group">
                     <a href="./login" class="nav-link px-2 link-secondary">Вернуться ко входу</a>
