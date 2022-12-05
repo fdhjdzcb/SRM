@@ -1,3 +1,8 @@
+drop table if exists roles cascade;
+drop table if exists users cascade;
+drop table if exists orders;
+drop table if exists past_orders;
+
 create table users
 (
     email           varchar(50)
