@@ -16,11 +16,11 @@ public class News {
     private String text;
     private Date pub_date;
     private String author;
-
+    private byte[] new_image;
     public News(){
 
     }
-    public News(String title, String text) {
+    public News(String title, String text, byte[] new_image) {
         this.title = title;
         this.text = text;
         Date currentDate = new Date(System.currentTimeMillis());
@@ -28,6 +28,7 @@ public class News {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         this.author = currentPrincipalName;
+        this.new_image = new_image;
     }
 
     public long getId() {
@@ -68,5 +69,13 @@ public class News {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public byte[] getNew_image() {
+        return new_image;
+    }
+
+    public void setNew_image(byte[] new_image) {
+        this.new_image = new_image;
     }
 }

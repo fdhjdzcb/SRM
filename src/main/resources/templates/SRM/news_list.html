@@ -2,11 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${title}"/>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <base href="/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
     <link rel="stylesheet" href="" th:href="@{/css/News.css}"/>
     <link rel="stylesheet" href="" th:href="@{/css/Sidebar.css}"/>
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
@@ -36,6 +38,17 @@
 </section>
 
 
+<!--<script>
+    let profile_picture = ref("");
+
+    function getUserImage() {
+        const dec = new TextDecoder("utf-8");
+        fetchUser(user.email).then((response) => {
+            let img = response.img.data;
+            profile_picture.value = dec.decode(new Uint8Array(img));
+        });
+    }
+</script>-->
 <div th:insert="blocks/scripts_footer :: scripts_footer"></div>
 </body>
 </html>

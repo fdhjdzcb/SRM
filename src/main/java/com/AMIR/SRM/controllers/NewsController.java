@@ -42,9 +42,10 @@ public class NewsController {
     public String add(
             @RequestParam String new_title,
             @RequestParam String new_text,
+            @RequestParam byte[] new_image,
             Map<String, Object> model) {
 
-        News news = new News(new_title, new_text);
+        News news = new News(new_title, new_text, new_image);
         newsRepo.save(news);
 
         return "SRM/create_news";
