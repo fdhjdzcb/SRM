@@ -7,6 +7,7 @@
     <div class="menu-inner">
         <ul>
             <li><a href=".."><strong>Главная</strong></a></li>
+            <li><a href="/srm/news_list">Новости</a></li>
             <li><a href="./manual">Руководство<br>пользователя</a></li>
             <li class="border-top" style="padding-bottom: 0px"></li>
             <li style="color: black; font-size: 18px">Заказы</li>
@@ -15,6 +16,7 @@
             <li><a href="/srm/orders/completed_orders">Завершенные</a></li>
             <li><a href="/srm/orders/canceled_orders">Отменённые</a></li>
             <li><a th:if="${role != '[USER]'}" href="/srm/orders/future_orders">Согласовать</a></li>
+            <li th:if="${role != '[USER]'}" class="border-top"><a href="/srm/create_news">Опубликовать<br>новость</a></li>
             <li th:if="${role == '[ADMIN]'}" class="border-top"><a href="/srm/admin">Админ-панель</a></li>
             <li class="border-top"></li>
             <div class="dropdown">

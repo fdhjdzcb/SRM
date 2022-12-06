@@ -29,6 +29,13 @@
     border-bottom: 3px solid #fff;
     font-size: 15px;
 }
+
+
+.table tr:hover{
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 10px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-1px);
+}
+
 .table tbody tr:nth-child(even){
     background: #f8f8f8!important;
 }

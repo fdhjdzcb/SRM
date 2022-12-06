@@ -2,6 +2,7 @@ drop table if exists roles cascade;
 drop table if exists users cascade;
 drop table if exists orders;
 drop table if exists past_orders;
+drop table if exists news;
 
 create table users
 (
@@ -60,6 +61,15 @@ create table past_orders
     provider      varchar(20)
 );
 
+create table news
+(
+    author   varchar(30),
+    text     varchar(300),
+    pub_date date,
+    title    varchar(50),
+    id       integer
+);
+
 insert into public.users (email, password, id, username, active, activation_code, name, surname)
 values  ('hejaca8912@diratu.com', '$2a$08$NMnQSdJMp8ZHc5YoVWWFVu99AqJyh59gRqxOCpV0BQ.t6uWZPIaTC', 53, '33333333', true, null, 'Амир', 'Галимуллин'),
         ('vitina8738@edinel.com', '$2a$08$9EYtnzUCj/kMLzbjltahfuDVRAXq/nnD1kl.DSX3VHHi7eEwkhXVW', 54, '11111111', true, null, 'Админ', 'Админов'),
@@ -93,3 +103,11 @@ values  (10, 'Зубная паста', 150, 100, '2022-12-02', 'Зубная п
         (9, 'Стол', 5500, 20, '2022-12-09', 'Письменный стол', 0, null, 'canceled', '11111111', null),
         (22, 'Функционал системы', 1000, 2, '2022-12-20', 'Функционал системы AMIR', 0, null, 'canceled', '11111111', null),
         (28, 'Курсовая', 200, 4, '2022-12-10', 'Курсовая по CALS и ООП', 193.08, '2022-12-06', 'completed', '22222222', 'Поставщик 1');
+
+insert into public.news (author, text, pub_date, title, id)
+values  ('11111111', 'Я добавил новости в 13:44 06.12.2022 вот это да!!!!!!!!!', '2022-12-06', 'Я добавил новости', 34),
+        ('11111111', 'esrdtyuio;lkjfhxdg', '2022-12-06', 'fesgruk', 35),
+        ('11111111', '123423142314342234', '2022-12-06', '1231324312', 36),
+        ('11111111', '423412314321423412341', '2022-12-06', '243132412341', 37),
+        ('11111111', '32412431243134212314', '2022-12-06', '342121432432314', 38),
+        ('11111111', 'fdsgdgfsdgfdgfsdgfsdfgs', '2022-12-06', 'sdgffgsdfdgssfdg', 39);
