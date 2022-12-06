@@ -54,7 +54,7 @@
 }
 .info h2 {
     font-family: 'Roboto', Тahoma, sans-serif;
-    color: #337AB7;
+    color: #251f00;
     font-size: 24px;
     font-weight: normal;
     margin: 0;
@@ -79,6 +79,7 @@
 }
 /* Кнопка подробнее */
 .atuin-btn {
+    border-radius: 10px;
     display: inline-flex;
     text-decoration: none;
     position: relative;
@@ -89,9 +90,9 @@
     font-weight: bold;
     text-transform: uppercase;
     font-family: 'Roboto', Тahoma, sans-serif;
-    background: #337AB7;
+    background: #ffd300;
     cursor: pointer;
-    border: 2px solid #BFE2FF;
+    border: 2px solid #f5ff8e;
 }
 .atuin-btn:hover,
 .atuin-btn:active,
@@ -103,7 +104,7 @@
     position: absolute;
     height: 4px;
     left: 50%;
-    background: #337AB7;
+    background: #ffd300;
     bottom: -6px;
     content: "";
     transition: all 280ms ease-in-out;

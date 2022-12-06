@@ -16,7 +16,7 @@
 <div th:insert="blocks/SRMmenu :: srmmenu"></div>
 <div class="text-center p-2"><h1>Опубликовать новость</h1></div>
 
-<form class="container needs-validation p-8" style="width: 35%" th:action="@{/srm/create_news}" method="post">
+<form class="container needs-validation p-8" style="width: 35%" th:action="@{/srm/create_news}" method="post" enctype="multipart/form-data">
     <!--novalidate=""-->
     <div class="row g-3">
         <div class="col-12">
@@ -33,11 +33,7 @@
 
         <div>
             <p class="form-label">Изображение, до 4МБ</p>
-            <!--<input type="file" accept="image/*"  class="form-control" id="new_image" name="new_image">-->
-
-            <input type="file" onchange="previewFile()" accept="image/*"  class="form-control" name="new_image"><br>
-            <textarea hidden id="b64" rows="13" cols="40"></textarea>
-            <img src="" height="200" alt="Предпросмотр">
+            <input type="file" accept="image/*"  class="form-control" id="new_image" name="file">
         </div>
     </div>
 
@@ -56,22 +52,6 @@
         }
     };
 </script>
-<script>
-    function previewFile() {
-    const preview = document.querySelector('img');
-    const file = document.querySelector('input[type=file]').files[0];
-    const reader = new FileReader();
-
-    reader.addEventListener("load", function () {
-        // convert image file to base64 string
-        preview.src = reader.result;
-        b64.innerHTML = reader.result; // show in textarea
-    }, false);
-
-    if (file) {
-        reader.readAsDataURL(file);
-    }
-}</script>
 <div th:insert="blocks/scripts_footer :: scripts_footer"></div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.AMIR.SRM.domain;
 
+import org.hibernate.annotations.Type;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -16,11 +17,11 @@ public class News {
     private String text;
     private Date pub_date;
     private String author;
-    private byte[] new_image;
+    private String new_image;
     public News(){
 
     }
-    public News(String title, String text, byte[] new_image) {
+    public News(String title, String text) {
         this.title = title;
         this.text = text;
         Date currentDate = new Date(System.currentTimeMillis());
@@ -28,7 +29,6 @@ public class News {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         this.author = currentPrincipalName;
-        this.new_image = new_image;
     }
 
     public long getId() {
@@ -71,11 +71,11 @@ public class News {
         this.author = author;
     }
 
-    public byte[] getNew_image() {
+    public String getNew_image() {
         return new_image;
     }
 
-    public void setNew_image(byte[] new_image) {
+    public void setNew_image(String new_image) {
         this.new_image = new_image;
     }
 }

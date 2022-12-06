@@ -5,6 +5,7 @@ import com.AMIR.SRM.domain.Order;
 import com.AMIR.SRM.repositories.NewsRepo;
 import com.AMIR.SRM.repositories.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -15,16 +16,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("srm/")
 public class NewsController {
     @Autowired
     private NewsRepo newsRepo;
+
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @PreAuthorize("hasAnyAuthority('DIRECTOR', 'ADMIN')")
     @GetMapping("create_news")
@@ -42,10 +50,23 @@ public class NewsController {
     public String add(
             @RequestParam String new_title,
             @RequestParam String new_text,
-            @RequestParam byte[] new_image,
-            Map<String, Object> model) {
+            @RequestParam("file") MultipartFile file,
+            Map<String, Object> model) throws IOException {
 
-        News news = new News(new_title, new_text, new_image);
+        News news = new News(new_title, new_text);
+        if (!file.isEmpty()){
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()){
+                uploadDir.mkdir();
+            }
+
+            String uuidFile = UUID.randomUUID().toString();
+            String resulFilename = uuidFile + "." + file.getOriginalFilename();
+
+            file.transferTo(new File(uploadPath + "/" + resulFilename));
+
+            news.setNew_image(resulFilename);
+        }
         newsRepo.save(news);
 
         return "SRM/create_news";

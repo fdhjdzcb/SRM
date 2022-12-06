@@ -37,21 +37,8 @@ $(window).on('load', function(){
     var expandAmount = 20;
 
     function svgCurve() {
-        if ((curveX > x-1) && (curveX < x+1)) {
-            xitteration = 0;
-        } else {
-            if (menuExpanded) {
-                targetX = 0;
-            } else {
-                xitteration = 0;
-                if (x > hoverZone) {
-                    targetX = 0;
-                } else {
-                    targetX = -(((60+expandAmount)/100)*(x-hoverZone));
-                }
-            }
-            xitteration++;
-        }
+
+        xitteration++;
 
         if ((curveY > y-1) && (curveY < y+1)) {
             yitteration = 0;
