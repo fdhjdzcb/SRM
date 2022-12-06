@@ -36,3 +36,32 @@
     box-shadow: #D6D6E7 0 3px 7px inset;
     transform: translateY(2px);
 }
+
+.create{
+    align-items: center;
+    border-radius: 10px;
+    border-width: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    height: 50px;
+    width: 100%;
+    justify-content: center;
+    line-height: 1;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    transition: box-shadow .15s, transform .15s;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+    margin-top: 0;
+    background: linear-gradient(90deg, rgba(255,150,0,0.75) 0%, rgba(255,240,0,1) 50%, rgba(255,150,0,0.75) 100%);
+
+}
+.create:hover{
+    width: 100%;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
