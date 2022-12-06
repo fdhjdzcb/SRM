@@ -12,10 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -38,7 +35,7 @@ public class NewsController {
     @GetMapping("create_news")
     public String create_news(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("title", "Согласовать");
+        model.addAttribute("title", "Опубликовать новость");
         model.addAttribute("username", authentication.getName());
         model.addAttribute("role", authentication.getAuthorities().toString());
 
@@ -75,12 +72,23 @@ public class NewsController {
     @GetMapping("news_list")
     public String news_list(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("title", "Согласовать");
+        model.addAttribute("title", "Новости");
         model.addAttribute("username", authentication.getName());
         model.addAttribute("role", authentication.getAuthorities().toString());
         List<News> news = newsRepo.findAll();
         model.addAttribute("news", news);
 
         return "SRM/news_list";
+    }
+
+    @GetMapping("news_list/{news}")
+    public String orderEditForm(@PathVariable News news, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("title", "Новость");
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities().toString());
+        model.addAttribute("news", news);
+
+        return "SRM/watch_new";
     }
 }
