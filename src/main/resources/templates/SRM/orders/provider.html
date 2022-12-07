@@ -39,7 +39,7 @@
             <div class="col-12">
                 <label for="provider_name" class="form-label"></label>
                 <select class="form-select text-center" id="provider_name" name="provider_name">
-                    <option style="margin-left: 10px" th:each="el : ${provider}"
+                    <option th:each="el : ${provider}"
                             th:text="${el.getName()}">
                     </option>
                 </select>
