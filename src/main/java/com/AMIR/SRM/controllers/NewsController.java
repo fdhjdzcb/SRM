@@ -54,7 +54,7 @@ public class NewsController {
         if (!file.isEmpty()){
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()){
-                uploadDir.mkdir();
+                uploadDir.mkdirs();
             }
 
             String uuidFile = UUID.randomUUID().toString();
