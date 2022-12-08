@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Map;
+import java.util.Objects;
+
 @Controller
 public class MainController {
     @GetMapping("/")
@@ -61,8 +64,9 @@ public class MainController {
 
     @Autowired
     private UserRepo userRepo;
+
     @GetMapping("srm/profile/{username}")
-    public String profile(@PathVariable String username, Model model){
+    public String profile(@PathVariable String username, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
 
@@ -80,15 +84,31 @@ public class MainController {
             @RequestParam String email,
             @RequestParam String name,
             @RequestParam String surname,
-            @RequestParam("userId") User user
-    ){
+            @RequestParam("userId") User user,
+            Map<String, Object> model
+    ) {
+        User userFromDb = userRepo.findByUsername(username);
+        User mailFromDb = userRepo.findByEmail(email);
+        if ((userFromDb != null) && (!Objects.equals(username, user.getUsername()))) {
+            System.out.println("Данный логин уже занят!");
+            model.put("message", "Данный логин уже занят!");
+            return "redirect:/srm/profile/" + user.getUsername();
+        } else if ((mailFromDb != null) && (!Objects.equals(email, user.getEmail()))) {
+            System.out.println("Данная почта уже занята!");
+            model.put("message", "Данная почта уже занята!");
+            return "redirect:/srm/profile/" + user.getUsername();
+        }
+        else if ((Objects.equals(username, user.getUsername())) && (Objects.equals(email, user.getEmail()))){
+            return "redirect:/srm/profile/" + user.getUsername();
+        }
+        System.out.println("Все ок");
         user.setUsername(username);
         user.setEmail(email);
         user.setName(name);
         user.setSurname(surname);
 
         userRepo.save(user);
-        return "redirect:/srm/profile/" + username;
+        return "redirect:/login?logout";
     }
 
     /*@GetMapping("/error")

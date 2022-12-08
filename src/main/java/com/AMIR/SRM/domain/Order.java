@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Calendar;
 
 @Entity
 @Table(name="orders")
@@ -44,7 +45,11 @@ public class Order {
         this.description = pastOrder.getDescription();
         this.max_price = pastOrder.getMax_price();
         this.count = pastOrder.getCount();
-        this.expected_date = pastOrder.getExpected_date();
+
+        Date currDate = new Date(System.currentTimeMillis());
+        if(pastOrder.getExpected_date().before(currDate)) this.expected_date = currDate;
+        else this.expected_date = pastOrder.getExpected_date();
+
         this.author = pastOrder.getAuthor();
         this.is_approved = false;
     }

@@ -46,13 +46,9 @@ public class UserController {
 
     @PostMapping()
     public String userSave(
-            @RequestParam String username,
-            @RequestParam String email,
             @RequestParam String role,
             @RequestParam("userId") User user
     ){
-        user.setUsername(username);
-        user.setEmail(email);
         user.getRoles().clear();
         user.getRoles().add(Role.valueOf(role));
 
