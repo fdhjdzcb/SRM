@@ -7,6 +7,7 @@
     <base href="/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="" th:href="@{/css/Buttons.css}"/>
     <link rel="stylesheet" href="" th:href="@{/css/Sidebar.css}"/>
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/sideBar.js}"></script>
@@ -20,9 +21,14 @@
     <p th:text="${news.text}"></p>
     Дата публикации: <p th:text="${news.pub_date}"></p>
     Автор: <p th:text="${news.author}"></p>
+    <form th:if="${role != '[USER]'}" th:action="@{/srm/delete_new/{id}(id=${news.id})}"><button onclick="return deleteNew()" class="create" style="width: 170px" type="submit">Удалить новость</button></form>
 </div>
 
-
+<script>
+    function deleteNew() {
+        return confirm("Вы уверены, что хотите удалить заказ?")
+    }
+</script>
 
 <div th:insert="blocks/scripts_footer :: scripts_footer"></div>
 </body>

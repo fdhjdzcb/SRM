@@ -82,7 +82,7 @@ public class NewsController {
     }
 
     @GetMapping("news_list/{news}")
-    public String orderEditForm(@PathVariable News news, Model model) {
+    public String watchNew(@PathVariable News news, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("title", "Новость");
         model.addAttribute("username", authentication.getName());
@@ -90,5 +90,18 @@ public class NewsController {
         model.addAttribute("news", news);
 
         return "SRM/watch_new";
+    }
+
+    @GetMapping("delete_new/{news}")
+    public String deleteNew(@PathVariable News news, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("title", "Новость");
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities().toString());
+        model.addAttribute("news", news);
+
+        newsRepo.delete(news);
+
+        return "redirect:/srm/news_list";
     }
 }

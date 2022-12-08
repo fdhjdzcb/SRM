@@ -53,6 +53,8 @@
     transform: scale(1.1);
 }
 .info h2 {
+    z-index: 0;
+    position: relative;
     font-family: 'Roboto', Тahoma, sans-serif;
     color: #251f00;
     font-size: 24px;
