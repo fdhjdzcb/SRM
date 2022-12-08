@@ -51,8 +51,13 @@
             this.value = "";
         }
         var exArray = ["png", "jpeg", "jpg", "PNG", "JPEG", "JPG"]
-        var filename = this.files[0].name.split('.').pop();
-        if (!exArray.includes(filename)){
+        var filename = this.files[0].name;
+        if (filename.length > 62){
+            alert("Слишком длинное название файла!");
+            this.value = "";
+        }
+        var fileext = filename.split('.').pop();
+        if (!exArray.includes(fileext)){
             alert("Загрузите картинку (png, jpeg, jpg)!");
             this.value = "";
         }
