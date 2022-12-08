@@ -1,5 +1,6 @@
 package com.AMIR.SRM.controllers;
 
+import com.AMIR.SRM.domain.News;
 import com.AMIR.SRM.domain.Order;
 import com.AMIR.SRM.domain.PastOrder;
 import com.AMIR.SRM.repositories.OrderRepo;
@@ -214,7 +215,7 @@ public class OrdersController {
         return "SRM/orders/completed_orders";
     }
 
-    @GetMapping("finished_orders/repeating/{pastOrder}")
+    @GetMapping("completed_orders/repeating/{pastOrder}")
     public String orderRepeatForm(@PathVariable PastOrder pastOrder, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("title", "Повторение заказа");
@@ -253,5 +254,21 @@ public class OrdersController {
 
         model.addAttribute("pastOrder", pastOrder);
         return "SRM/orders/canceled_orders";
+    }
+
+    @GetMapping("delete_order/{pastOrder}")
+    public String deleteNew(@PathVariable PastOrder pastOrder, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("title", "Новость");
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities().toString());
+
+        String status = pastOrder.getStatus();
+
+        pastOrderRepo.delete(pastOrder);
+        if (Objects.equals(status, "canceled"))
+            return "redirect:/srm/orders/canceled_orders";
+        else
+            return "redirect:/srm/orders/completed_orders";
     }
 }
