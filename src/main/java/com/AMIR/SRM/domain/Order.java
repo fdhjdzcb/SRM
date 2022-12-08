@@ -54,7 +54,6 @@ public class Order {
         this.is_approved = false;
     }
 
-
     public long getId() {
         return id;
     }
