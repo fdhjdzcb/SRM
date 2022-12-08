@@ -1,11 +1,3 @@
-function checkDate(){
-    let expected_date = document.getElementById("expected_date");
-    if (expected_date !== '2022-12-17'){
-        expected_date.style.color = makeColor(100);
-    }
-
-}
-
 function intToHex(i) {
     var hex = parseInt(i).toString(16);
     return (hex.length < 2) ? "0" + hex : hex;
@@ -30,4 +22,12 @@ function makeColor(value) {
     }
 
     return "#" + intToHex(redValue) + intToHex(greenValue) + "00";
+}
+
+function checkDate(){
+    let expected_date = document.getElementsByClassName("color_date");
+    if (expected_date !== "2022-12-17"){
+        expected_date.style.color = makeColor(100);
+    }
+
 }
