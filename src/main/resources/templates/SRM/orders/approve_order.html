@@ -51,6 +51,8 @@
                     <label for="expected_date" class="form-label">Ожидаемая дата доставки</label>
                     <input type="date" min="1899-01-01" onfocus="this.min = new Date().toISOString().split('T')[0]" max="2030-12-31" class="form-control" id="expected_date" name="expected_date"
                            th:value="${order.expected_date}" required="">
+                    <input type="date" min="1899-01-01" onfocus="this.min = new Date().toISOString().split('T')[0]" max="2030-12-31" class="form-control" id="expected_date" name="expected_date"
+                           th:value="${order.expected_date}" required="">
                 </div>
 
                 <input type="hidden" th:value="${order.id}" name="orderId">

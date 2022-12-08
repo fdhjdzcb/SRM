@@ -45,14 +45,18 @@
                     <td th:text="${el.real_date}"/>
                     <td th:width="100px" th:if="not ${el.getProvider()}" th:text="-----"/>
                     <td nowrap="" th:width="100px" th:if="${el.getProvider()}" th:text="${el.getProvider()}"/>
-                    <td th:width="100px"><form th:action="@{/srm/orders/canceled_orders/repeating/{id}(id=${el.id})}"><button class="button-30">Повторить</button></form></td>
+                    <td th:width="100px"><form th:action="@{/srm/orders/canceled_orders/repeating/{id}(id=${el.id})}" onclick="return repeatOrder()"><button class="button-30">Повторить</button></form></td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-</div>
+<script>
+    function repeatOrder() {
+        return confirm("Вы уверены, что хотите повторить заказ?")
+    }
+</script>
 
 
 <div th:insert="blocks/scripts_footer :: scripts_footer"></div>
