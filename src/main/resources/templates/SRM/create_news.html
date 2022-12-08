@@ -33,7 +33,7 @@
 
         <div>
             <p class="form-label">Изображение, до 4МБ</p>
-            <input type="file" accept="image/*"  class="form-control" id="new_image" name="file">
+            <input type="file" accept="image/jpeg, image/png"  class="form-control" id="new_image" name="file">
         </div>
     </div>
 
@@ -48,6 +48,12 @@
     uploadField.onchange = function () {
         if (this.files[0].size > 4194304) {
             alert("Слишком большой файл!");
+            this.value = "";
+        }
+        var exArray = ["png", "jpeg", "jpg", "PNG", "JPEG", "JPG"]
+        var filename = this.files[0].name.split('.').pop();
+        if (!exArray.includes(filename)){
+            alert("Загрузите картинку (png, jpeg, jpg)!");
             this.value = "";
         }
     };
