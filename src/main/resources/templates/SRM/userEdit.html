@@ -21,17 +21,11 @@
         <form class="container needs-validation p-8 w-25" action="/srm/admin" method="post">
             <div class="row g-3">
                 <div class="col-12">
-                    <label for="username" class="form-label">Логин</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Логин"
-                           th:value="${user.username}" minlength="6"
-                           required="">
+                    Логин: <a th:text="${user.username}"></a>
                 </div>
 
                 <div class="col-12">
-                    <label for="email" class="form-label">Эл. почта</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Почта"
-                           th:value="${user.email}"
-                           required="">
+                    Почта: <a th:text="${user.email}"></a>
                 </div>
 
                 <div class="col-12">
