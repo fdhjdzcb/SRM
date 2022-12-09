@@ -25,11 +25,11 @@
             <table class="table" id="info-table">
                 <tbody>
                 <tr>
-                    <th onclick="sortTable(0)">Название</th>
-                    <th onclick="sortTable(1)">Описание</th>
-                    <th nowrap="" onclick="sortTable(2)">Кол-во</th>
-                    <th onclick="sortTable(3)">Ожидаемая цена</th>
-                    <th onclick="sortTable(4)">Ожидаемая дата</th> <!--todo не работает потому что обычно здесь реальная цена-->
+                    <th onclick="sortTable(0, 's')">Название</th>
+                    <th onclick="sortTable(1, 's')">Описание</th>
+                    <th nowrap="" onclick="sortTable(2, 'n')">Кол-во</th>
+                    <th onclick="sortTable(3, 'n')">Ожидаемая цена</th>
+                    <th onclick="sortTable(4, 's')">Ожидаемая дата</th>
                     <th>Согласовать/отказать</th>
                 </tr>
                 <tr th:if="${not el.is_approved}" th:each="el : ${order}">

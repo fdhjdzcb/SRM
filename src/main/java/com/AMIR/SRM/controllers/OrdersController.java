@@ -50,6 +50,7 @@ public class OrdersController {
             @RequestParam Date expected_date,
             Map<String, Object> model) {
 
+        model.put("message", "Заказ успешно создан");
         Order order = new Order(product_name, description, max_price, count, expected_date);
         orderRepo.save(order);
 
@@ -89,7 +90,7 @@ public class OrdersController {
         model.addAttribute("order", order);
 
         Random random = new Random();
-        int countOfProviders = random.nextInt(5) + 1;
+        int countOfProviders = random.nextInt(15) + 1;
         Provider[] providers = new Provider[countOfProviders];
         for (int i = 0; i < countOfProviders; i++) {
             int j = random.nextInt(10);
@@ -145,7 +146,7 @@ public class OrdersController {
         PastOrder pastOrder = new PastOrder(order, "canceled");
         pastOrderRepo.save(pastOrder);
         orderRepo.delete(order);
-        return "redirect:/srm/orders/current_orders";
+        return "redirect:/srm/orders/future_orders";
     }
 
     @GetMapping("current_orders/finishing/{order}")

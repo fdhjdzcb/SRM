@@ -26,14 +26,14 @@
             <table class="table" id="info-table">
                 <tbody>
                 <tr>
-                    <th onclick="sortTable(0)">Название</th>
-                    <th onclick="sortTable(1)">Описание</th>
-                    <th nowrap="" onclick="sortTable(2)">Кол-во</th>
-                    <th onclick="sortTable(3)">Ожидаемая цена</th>
-                    <th onclick="sortTable(4)">Реальная цена</th>
-                    <th onclick="sortTable(5)">Ожидаемая дата</th>
-                    <th onclick="sortTable(6)">Реальная дата</th>
-                    <th onclick="sortTable(7)">Поставщик</th>
+                    <th onclick="sortTable(0, 's')">Название</th>
+                    <th onclick="sortTable(1, 's')">Описание</th>
+                    <th nowrap="" onclick="sortTable(2, 'n')">Кол-во</th>
+                    <th onclick="sortTable(3, 'n')">Ожидаемая цена</th>
+                    <th onclick="sortTable(4, 'n')">Реальная цена</th>
+                    <th onclick="sortTable(5, 's')">Ожидаемая дата</th>
+                    <th onclick="sortTable(6, 's')">Реальная дата</th>
+                    <th onclick="sortTable(7, 's')">Поставщик</th>
                     <th></th>
                 </tr>
                 <tr th:if="${el.status == 'completed'}" th:each="el : ${pastOrder}">
@@ -46,7 +46,7 @@
                     <td th:text="${el.real_date}"/>
                     <td th:width="100px" th:if="not ${el.getProvider()}" th:text="-----"/>
                     <td nowrap="" th:width="100px" th:if="${el.getProvider()}" th:text="${el.getProvider()}"/>
-                    <td th:width="100px"><form th:action="@{/srm/orders/finished_orders/repeating/{id}(id=${el.id})}" onclick="return repeatOrder()"><button class="button-30">Повторить</button></form><form th:action="@{/srm/orders/delete_order/{id}(id=${el.id})}" onclick="return deleteOrder()"><button class="button-30">Удалить</button></form></td>
+                    <td th:width="100px"><form th:action="@{/srm/orders/completed_orders/repeating/{id}(id=${el.id})}" onclick="return repeatOrder()"><button class="button-30">Повторить</button></form><form th:action="@{/srm/orders/delete_order/{id}(id=${el.id})}" onclick="return deleteOrder()"><button class="button-30">Удалить</button></form></td>
                 </tr>
                 </tbody>
             </table>

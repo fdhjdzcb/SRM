@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="" th:href="@{/css/Buttons.css}"/>
     <script type="text/javascript" th:src="@{/js/tableSearch.js}"></script>
     <script type="text/javascript" th:src="@{/js/sortTable.js}"></script>
-    <script type="text/javascript" th:src="@{/js/colorTable.js}"></script>
     <link rel="stylesheet" href="" th:href="@{/css/Sidebar.css}"/>
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/sideBar.js}"></script>
@@ -27,14 +26,14 @@
         <table class="table" id="info-table">
             <tbody>
             <tr>
-                <th onclick="sortTable(0)">Название</th>
-                <th onclick="sortTable(1)">Описание</th>
-                <th nowrap="" onclick="sortTable(2)">Кол-во</th>
-                <th onclick="sortTable(3)">Ожидаемая цена</th>
-                <th onclick="sortTable(4)">Реальная цена</th>
-                <th onclick="sortTable(5)">Ожидаемая дата</th>
-                <th onclick="sortTable(6)">Реальная дата</th>
-                <th onclick="sortTable(7)">Поставщик</th>
+                <th onclick="sortTable(0, 's')">Название</th>
+                <th onclick="sortTable(1, 's')">Описание</th>
+                <th nowrap="" onclick="sortTable(2, 'n')">Кол-во</th>
+                <th onclick="sortTable(3, 'n')">Ожидаемая цена</th>
+                <th onclick="sortTable(4, 'n')">Реальная цена</th>
+                <th onclick="sortTable(5, 's')">Ожидаемая дата</th>
+                <th onclick="sortTable(6, 's')">Реальная дата</th>
+                <th onclick="sortTable(7, 's')">Поставщик</th>
                 <th>Завершить/отменить</th>
                 <th>Скачать</th>
 

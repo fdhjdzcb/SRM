@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
     <link rel="stylesheet" href="" th:href="@{/css/Table.css}"/>
+    <script type="text/javascript" th:src="@{/js/tableSearch.js}"></script>
+    <script type="text/javascript" th:src="@{/js/sortTable.js}"></script>
     <link rel="stylesheet" href="" th:href="@{/css/Buttons.css}"/>
     <link rel="stylesheet" href="" th:href="@{/css/Sidebar.css}"/>
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/sideBar.js}"></script>
-    <script type="text/javascript" th:src="@{/js/tableSearch.js}"></script>
 </head>
 <body>
 <div th:insert="blocks/SRMmenu :: srmmenu"></div>
@@ -24,12 +25,12 @@
             <table class="table" id="info-table">
                 <tbody>
                 <tr>
-                    <th>Логин</th>
-                    <th>Почта</th>
-                    <th>Роль</th>
+                    <th onclick="sortTable(0, 's')">Логин</th>
+                    <th onclick="sortTable(1, 's')">Почта</th>
+                    <th onclick="sortTable(2, 's')">Роль</th>
                     <th></th>
                 </tr>
-                <tr th:each="el : ${users}" th:if="${el.getRoles().iterator().next().toString() != 'ADMIN'}">
+                <tr th:each="el : ${users}" th:if="${el.username != username}">
                     <td th:text="${el.username}"/>
                     <td th:text="${el.email}"/>
                     <td th:text="${el.getRoles().iterator().next().toString()}"/>

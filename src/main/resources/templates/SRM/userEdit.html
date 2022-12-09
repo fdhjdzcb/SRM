@@ -31,11 +31,17 @@
                 <div class="col-12">
                     <label for="role" class="form-label">Права доступа</label>
                     <select class="form-select text-center" id="role" name="role">
-                        <option th:each="el : ${roles}"
+                        <!--<option th:each="el : ${roles}"
                                 th:if="${user.getStrRole() == el.toString() and el.toString() != 'ADMIN'}"
                                 selected="selected" th:text="${el.toString()}"></option>
                         <option th:each="el : ${roles}"
                                 th:if="${user.getStrRole() != el.toString() and el.toString() != 'ADMIN'}"
+                                th:text="${el.toString()}"></option>-->
+                        <option th:each="el : ${roles}"
+                                th:if="${user.getStrRole() == el.toString()}"
+                                selected="selected" th:text="${el.toString()}"></option>
+                        <option th:each="el : ${roles}"
+                                th:if="${user.getStrRole() != el.toString()}"
                                 th:text="${el.toString()}"></option>
                     </select>
                 </div>

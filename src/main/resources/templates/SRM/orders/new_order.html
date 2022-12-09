@@ -16,51 +16,50 @@
 <body>
 <div th:insert="blocks/SRMmenu :: srmmenu"></div>
 <div class="text-center p-2">
-        <h1 class="text-center">Создание запроса</h1>
+    <h1 class="text-center">Создание запроса</h1>
 
-        <form class="container needs-validation p-8" style="width: 35%" th:action="@{/srm/orders/new_order}" method="post">
-            <!--novalidate=""-->
-            <div class="row g-3">
-                <div class="col-12">
-                    <label for="product_name" class="form-label">Название товара</label>
-                    <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Название"
-                           required="" maxlength="100">
-                </div>
-
-                <div class="col-12">
-                    <label for="description" class="form-label">Краткое описание товара</label>
-                    <textarea class="form-control" id="description" name="description" placeholder="Описание..."
-                              required="" maxlength="85"></textarea>
-                </div>
-
-                <div class="col-12">
-                    <label for="count" class="form-label">Количество</label>
-                    <input type="number" min="1" step="1" max="1000" class="form-control" id="count" name="count"
-                           placeholder="10"
-                           required="">
-                </div>
-
-                <div class="col-12">
-                    <label for="max_price" class="form-label">Цена, ₽</label>
-                    <input type="number" min="0" step="0.01" max="100000000" class="form-control" id="max_price"
-                           name="max_price"
-                           placeholder="1000" required="">
-                </div>
-
-                <div class="col-12">
-                    <label for="expected_date" class="form-label">Ожидаемая дата доставки</label>
-                    <input type="date"  min="1899-01-01" onfocus="this.min=new Date().toISOString().split('T')[0]" max="2030-12-31" class="form-control" id="expected_date"
-                           name="expected_date" required="">
-                </div>
-
+    <form class="container needs-validation p-8" style="width: 35%" th:action="@{/srm/orders/new_order}" method="post">
+        <strong th:text="${message}"></strong>
+        <div class="row g-3">
+            <div class="col-12">
+                <label for="product_name" class="form-label">Название товара</label>
+                <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Название"
+                       required="" maxlength="100">
             </div>
 
-            <hr class="my-4">
+            <div class="col-12">
+                <label for="description" class="form-label">Краткое описание товара</label>
+                <textarea class="form-control" id="description" name="description" placeholder="Описание..."
+                          required="" maxlength="85"></textarea>
+            </div>
 
-            <button class="create" type="submit">Создать</button>
-        </form>
-    </div>
+            <div class="col-12">
+                <label for="count" class="form-label">Количество</label>
+                <input type="number" min="1" step="1" max="1000" class="form-control" id="count" name="count"
+                       placeholder="10"
+                       required="">
+            </div>
 
+            <div class="col-12">
+                <label for="max_price" class="form-label">Цена, ₽</label>
+                <input type="number" min="0" step="0.01" max="100000000" class="form-control" id="max_price"
+                       name="max_price"
+                       placeholder="1000" required="">
+            </div>
+
+            <div class="col-12">
+                <label for="expected_date" class="form-label">Ожидаемая дата доставки</label>
+                <input type="date" min="1899-01-01" onfocus="this.min=new Date().toISOString().split('T')[0]"
+                       max="2030-12-31" class="form-control" id="expected_date"
+                       name="expected_date" required="">
+            </div>
+
+        </div>
+
+        <hr class="my-4">
+
+        <button class="create" type="submit">Создать</button>
+    </form>
 </div>
 
 <div th:insert="blocks/scripts_footer :: scripts_footer"></div>

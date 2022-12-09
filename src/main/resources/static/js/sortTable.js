@@ -1,4 +1,4 @@
-function sortTable(n) {
+function sortTable(n, type) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("info-table");
     switching = true;
@@ -10,13 +10,13 @@ function sortTable(n) {
             shouldSwitch = false;
             x = rows[i].getElementsByTagName("TD")[n];
             y = rows[i + 1].getElementsByTagName("TD")[n];
-            if (n != 2 && n != 3 && n != 4) {
-                if (dir == "asc") {
+            if (type === "s") {
+                if (dir === "asc") {
                     if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
                         shouldSwitch = true;
                         break;
                     }
-                } else if (dir == "desc") {
+                } else if (dir === "desc") {
                     if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
                         shouldSwitch = true;
                         break;
@@ -25,12 +25,12 @@ function sortTable(n) {
             }
             else
             {
-                if (dir == "asc") {
+                if (dir === "asc") {
                     if (Number(x.innerHTML) > Number(y.innerHTML)) {
                         shouldSwitch = true;
                         break;
                     }
-                } else if (dir == "desc") {
+                } else if (dir === "desc") {
                     if (Number(x.innerHTML) < Number(y.innerHTML)) {
                         shouldSwitch = true;
                         break;
