@@ -19,24 +19,18 @@
 <div class="text-center p-2">
         <h1>Изменение пользователей</h1>
         <form class="container needs-validation p-8 w-25" action="/srm/admin" method="post">
-            <div class="row g-3">
+            <div class="row g-3" style="font-size: 22px">
                 <div class="col-12">
-                    Логин: <a th:text="${user.username}"></a>
+                    Логин: <strong th:text="${user.username}"></strong>
                 </div>
 
                 <div class="col-12">
-                    Почта: <a th:text="${user.email}"></a>
+                    Почта: <strong th:text="${user.email}"></strong>
                 </div>
 
                 <div class="col-12">
                     <label for="role" class="form-label">Права доступа</label>
                     <select class="form-select text-center" id="role" name="role">
-                        <!--<option th:each="el : ${roles}"
-                                th:if="${user.getStrRole() == el.toString() and el.toString() != 'ADMIN'}"
-                                selected="selected" th:text="${el.toString()}"></option>
-                        <option th:each="el : ${roles}"
-                                th:if="${user.getStrRole() != el.toString() and el.toString() != 'ADMIN'}"
-                                th:text="${el.toString()}"></option>-->
                         <option th:each="el : ${roles}"
                                 th:if="${user.getStrRole() == el.toString()}"
                                 selected="selected" th:text="${el.toString()}"></option>
@@ -52,6 +46,13 @@
                 <hr class="my-4">
 
                 <button class="create" type="submit">Сохранить</button>
+
+                <div th:if="${user.active}" class="col-12">
+                    <a href="" th:href="@{/srm/admin/ban/{id}(id=${user.id})}" style="font-size: 14px; color: firebrick">Заблокировать пользователя</a>
+                </div>
+                <div th:if="not ${user.active}" class="col-12">
+                    <a href="" th:href="@{/srm/admin/unban/{id}(id=${user.id})}" style="font-size: 14px; color: firebrick">Разблокировать пользователя</a>
+                </div>
             </div>
         </form>
     </div>

@@ -13,35 +13,49 @@
     <script type="text/javascript" th:src="@{/js/sortTable.js}"></script>
     <link rel="stylesheet" href="" th:href="@{/css/Buttons.css}"/>
     <link rel="stylesheet" href="" th:href="@{/css/Sidebar.css}"/>
+    <link rel="stylesheet" href="" th:href="@{/css/Switcher.css}"/>
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/sideBar.js}"></script>
+    <script type="text/javascript" th:src="@{/js/switchAdmin.js}"></script>
 </head>
 <body>
 <div th:insert="blocks/SRMmenu :: srmmenu"></div>
 <div class="text-center p-2">
-        <h1>Админ-панель</h1>
-        <div class="container">
-            <input class="form-control mb-3 w-25" type="text" placeholder="Поиск" id="search-text" onkeyup="tableSearch()">
-            <table class="table" id="info-table">
-                <tbody>
-                <tr>
-                    <th onclick="sortTable(0, 's')">Логин</th>
-                    <th onclick="sortTable(1, 's')">Почта</th>
-                    <th onclick="sortTable(2, 's')">Роль</th>
-                    <th></th>
-                </tr>
-                <tr th:each="el : ${users}" th:if="${el.username != username}">
-                    <td th:text="${el.username}"/>
-                    <td th:text="${el.email}"/>
-                    <td th:text="${el.getRoles().iterator().next().toString()}"/>
-                    <td th:width="100px"><form th:action="@{/srm/admin/{id}(id=${el.id})}"><button class="button-30">Изменить</button></form></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <h1>Админ-панель</h1>
+    <div class="container">
+        <input class="form-control mb-3 w-25" type="text" placeholder="Поиск" id="search-text" onkeyup="tableSearch()">
+        <label class="switch">
+            <input id="filter-banned" name="filter-banned" type="checkbox" onclick="filterBanned()">
+            <span class="slider round"></span>
+        </label>
+        <table class="table" id="info-table">
+            <tbody>
+            <tr>
+                <th onclick="sortTable(0, 's')">Логин</th>
+                <th onclick="sortTable(1, 's')">Почта</th>
+                <th onclick="sortTable(2, 's')">Роль</th>
+                <th hidden>Статус</th>
+                <th></th>
+            </tr>
+            <tr th:each="el : ${users}" th:if="${(el.username != username) and (el.activationCode == null)}">
+                <td th:text="${el.username}"/>
+                <td th:text="${el.email}"/>
+                <td th:text="${el.getRoles().iterator().next().toString()}"/>
+                <td hidden th:if="${el.isActive()}" th:text="Активен"/>
+                <td hidden th:if="not ${el.isActive()}" th:text="Заблокирован"/>
+                <td th:width="100px">
+                    <form th:action="@{/srm/admin/{id}(id=${el.id})}">
+                        <button class="button-30">Изменить</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-
 </div>
+<script>
+    filterBanned();
+</script>
 
 <div th:insert="blocks/scripts_footer :: scripts_footer"></div>
 </body>
