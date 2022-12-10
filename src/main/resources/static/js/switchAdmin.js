@@ -5,7 +5,7 @@ function filterBanned() {
     var checkBox = document.getElementById("filter-banned");
     for (var i = 1; i < table.rows.length; i++) {
         checkBox = document.getElementById("filter-banned");
-        if (checkBox.checked){
+        if (!checkBox.checked){
             flag = true;
         }
         console.log(table.rows[i].cells[3]);
