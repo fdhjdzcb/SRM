@@ -141,12 +141,19 @@ public class OrdersController {
         return "redirect:/srm/orders/current_orders";
     }
 
+    @GetMapping("future_orders/cancelling/{order}")
+    public String cancel_future_order(@PathVariable Order order, Model model) {
+        PastOrder pastOrder = new PastOrder(order, "canceled");
+        pastOrderRepo.save(pastOrder);
+        orderRepo.delete(order);
+        return "redirect:/srm/orders/future_orders";
+    }
     @GetMapping("current_orders/cancelling/{order}")
     public String cancel_order(@PathVariable Order order, Model model) {
         PastOrder pastOrder = new PastOrder(order, "canceled");
         pastOrderRepo.save(pastOrder);
         orderRepo.delete(order);
-        return "redirect:/srm/orders/future_orders";
+        return "redirect:/srm/orders/current_orders";
     }
 
     @GetMapping("current_orders/finishing/{order}")
