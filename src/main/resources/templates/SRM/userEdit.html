@@ -48,10 +48,10 @@
                 <button class="create" type="submit">Сохранить</button>
 
                 <div th:if="${user.active}" class="col-12">
-                    <a href="" th:href="@{/srm/admin/ban/{id}(id=${user.id})}" style="font-size: 14px; color: firebrick">Заблокировать пользователя</a>
+                    <a href="" th:href="@{/srm/admin/ban/{id}(id=${user.id})}" style="font-size: 16px; color: firebrick">Заблокировать пользователя</a>
                 </div>
                 <div th:if="not ${user.active}" class="col-12">
-                    <a href="" th:href="@{/srm/admin/unban/{id}(id=${user.id})}" style="font-size: 14px; color: firebrick">Разблокировать пользователя</a>
+                    <a href="" th:href="@{/srm/admin/unban/{id}(id=${user.id})}" style="font-size: 16px; color: green">Разблокировать пользователя</a>
                 </div>
             </div>
         </form>
