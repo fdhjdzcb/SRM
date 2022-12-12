@@ -110,10 +110,4 @@ public class MainController {
         userRepo.save(user);
         return "redirect:/login?logout";
     }
-
-    /*@GetMapping("/error")
-    public String error(Model model){
-        model.addAttribute("title", "Ошибка");
-        return "error";
-    }*/
 }

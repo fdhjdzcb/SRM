@@ -279,4 +279,48 @@ public class OrdersController {
         else
             return "redirect:/srm/orders/completed_orders";
     }
+
+    @GetMapping("completed_orders/analytics")
+    public String analyticOrders(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("title", "Аналитика по завершенным заказам");
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities().toString());
+
+        List<PastOrder> pastOrder = pastOrderRepo.findAll();
+        int countOfPastOrders = pastOrder.size();
+        for (int i = 0; i < pastOrder.size(); i++)
+            if (Objects.equals(pastOrder.get(i).getStatus(), "canceled")) {
+                pastOrder.remove(i);
+                i--;
+            }
+
+        int count = 0;
+        float sum = 0;
+        float realSum = 0;
+        long diffInMillies = 0;
+        int diffDays = 0;
+        PastOrder pastOrderI;
+        for (int i = 0; i < pastOrder.size(); i++) {
+                pastOrderI = pastOrder.get(i);
+                count += pastOrderI.getCount();
+                sum += pastOrderI.getCount()*pastOrderI.getMax_price();
+                realSum += pastOrderI.getCount()*pastOrderI.getReal_price();
+                diffInMillies += Math.abs(pastOrderI.getExpected_date().getTime() - pastOrderI.getReal_date().getTime());
+        }
+        float avgPrice = (float) (Math.ceil(realSum*100/count)/100);
+        float avgDiscount = (float) Math.ceil((sum - realSum)/sum*10000)/100;
+
+        diffDays = (int) TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        float percentOfCanceled = (float) Math.ceil((countOfPastOrders - pastOrder.size())*10000/countOfPastOrders)/100;
+
+        model.addAttribute("sum", sum);
+        model.addAttribute("count", count);
+        model.addAttribute("avgPrice", avgPrice);
+        model.addAttribute("avgDiscount", avgDiscount);
+        model.addAttribute("diffDays", diffDays);
+        model.addAttribute("percentOfCanceled", percentOfCanceled);
+
+        return "SRM/orders/analytics";
+    }
 }

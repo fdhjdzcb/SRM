@@ -22,6 +22,11 @@
 <div th:insert="blocks/SRMmenu :: srmmenu"></div>
 <div class="text-center p-2">
     <h1>Завершённые заказы</h1>
+    <form th:action="@{/srm/orders/completed_orders/analytics}">
+        <button class="button-30" style="font-size: 18px">
+            Аналитика
+        </button>
+    </form>
     <div class="container">
         <input class="form-control mb-3 w-25" type="text" placeholder="Поиск" id="search-text" onkeyup="tableSearch()">
         <table class="table" id="info-table">
@@ -47,15 +52,6 @@
                 <td th:text="${el.real_date}"/>
                 <td th:width="100px" th:if="not ${el.getProvider()}" th:text="-----"/>
                 <td nowrap="" th:width="100px" th:if="${el.getProvider()}" th:text="${el.getProvider()}"/>
-                <!--<td th:width="100px">
-                    <form th:action="@{/srm/orders/completed_orders/repeating/{id}(id=${el.id})}"
-                          onclick="return repeatOrder()">
-                        <button class="button-30">Повторить</button>
-                    </form>
-                    <form th:action="@{/srm/orders/delete_order/{id}(id=${el.id})}" onclick="return deleteOrder()">
-                        <button class="button-30">Удалить</button>
-                    </form>
-                </td>-->
                 <td th:width="100px">
                     <form onsubmit="confirmRepeatAlert(this); return false"
                           th:action="@{/srm/orders/completed_orders/repeating/{id}(id=${el.id})}">
