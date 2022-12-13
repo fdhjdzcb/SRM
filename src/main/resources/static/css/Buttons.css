@@ -101,3 +101,33 @@
     outline: 0;
     box-shadow: 0 0 0 0.25rem rgba(255, 211, 0, 0.5);
 }
+
+.analytics {
+    align-items: center;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    outline: 2px solid #ffd300;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    height: 38px;
+    width: 100%;
+    justify-content: center;
+    line-height: 1;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    transition: box-shadow .15s, transform .15s;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+    margin-top: 0;
+    background: #ffd300;
+
+}
+.analytics:hover {
+    width: 100%;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+}

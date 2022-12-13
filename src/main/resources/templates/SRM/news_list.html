@@ -36,18 +36,6 @@
     </article>
 </section>
 
-
-<!--<script>
-    let profile_picture = ref("");
-
-    function getUserImage() {
-        const dec = new TextDecoder("utf-8");
-        fetchUser(user.email).then((response) => {
-            let img = response.img.data;
-            profile_picture.value = dec.decode(new Uint8Array(img));
-        });
-    }
-</script>-->
 <div th:insert="blocks/scripts_footer :: scripts_footer"></div>
 </body>
 </html>

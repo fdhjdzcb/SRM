@@ -16,9 +16,9 @@ a:hover {
 }
 
 #menu {
+    z-index: 1;
     height: 100%;
     position: fixed;
-    /*background-color: #ffd300;*/
     background: linear-gradient(135deg, rgba(255,166,0,1) 0%, rgba(255,218,0,1) 84%, rgba(255, 244, 60, 1) 100%);
     width: 300px;
     transition: 1000ms all cubic-bezier(0.19, 1, 0.22, 1);

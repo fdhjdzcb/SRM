@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="" th:href="@{/css/Buttons.css}"/>
     <script type="text/javascript" th:src="@{/js/tableSearch.js}"></script>
     <script type="text/javascript" th:src="@{/js/sortTable.js}"></script>
-    <script type="text/javascript" th:src="@{/js/colorTable.js}"></script>
     <link rel="stylesheet" href="" th:href="@{/css/Sidebar.css}"/>
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/sideBar.js}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <div th:insert="blocks/SRMmenu :: srmmenu"></div>
@@ -27,14 +27,14 @@
         <table class="table" id="info-table">
             <tbody>
             <tr>
-                <th onclick="sortTable(0)">Название</th>
-                <th onclick="sortTable(1)">Описание</th>
-                <th nowrap="" onclick="sortTable(2)">Кол-во</th>
-                <th onclick="sortTable(3)">Ожидаемая цена</th>
-                <th onclick="sortTable(4)">Реальная цена</th>
-                <th onclick="sortTable(5)">Ожидаемая дата</th>
-                <th onclick="sortTable(6)">Реальная дата</th>
-                <th onclick="sortTable(7)">Поставщик</th>
+                <th onclick="sortTable(0, 's')">Название</th>
+                <th onclick="sortTable(1, 's')">Описание</th>
+                <th nowrap="" onclick="sortTable(2, 'n')">Кол-во</th>
+                <th onclick="sortTable(3, 'n')">Ожидаемая цена</th>
+                <th onclick="sortTable(4, 'n')">Реальная цена</th>
+                <th onclick="sortTable(5, 's')">Ожидаемая дата</th>
+                <th onclick="sortTable(6, 's')">Реальная дата</th>
+                <th onclick="sortTable(7, 's')">Поставщик</th>
                 <th>Завершить/отменить</th>
                 <th>Скачать</th>
 
@@ -52,12 +52,33 @@
                 <td th:if="${el.real_date}" th:text="${el.real_date}"/>
                 <td th:if="not ${el.real_date}" th:text="-----"/>
 
-                <td th:width="100px" th:if="not ${el.getProvider()}"><form th:action="@{/srm/orders/current_orders/{id}(id=${el.id})}"><button class="button-30" type="submit">Выбрать</button></form></td>
+                <td th:width="100px" th:if="not ${el.getProvider()}">
+                    <form th:action="@{/srm/orders/current_orders/{id}(id=${el.id})}">
+                        <button class="button-30" type="submit">Выбрать</button>
+                    </form>
+                </td>
                 <td nowrap="" th:width="100px" th:if="${el.getProvider()}" th:text="${el.getProvider()}"></td>
 
-                <td th:width="100px"><form th:action="@{/srm/orders/current_orders/finishing/{id}(id=${el.id})}"><button th:if="${el.getReal_date()}" class="button-30" onclick="return finishOrder()">Завершить</button></form><form th:action="@{/srm/orders/current_orders/cancelling/{id}(id=${el.id})}"><button class="button-30" onclick="return cancelOrder()">Отменить</button></form></td>
+                <td th:width="100px">
+                    <form onsubmit="confirmFinishAlert(this); return false"
+                          th:action="@{/srm/orders/current_orders/finishing/{id}(id=${el.id})}">
+                        <button th:if="${el.getReal_date()}" class="button-30">
+                            Завершить
+                        </button>
+                    </form>
+                    <form onsubmit="confirmCancelAlert(this); return false"
+                          th:action="@{/srm/orders/current_orders/cancelling/{id}(id=${el.id})}">
+                        <button class="button-30">
+                            Отменить
+                        </button>
+                    </form>
+                </td>
 
-                <td th:width="50px" class="border-0"><form th:action="@{/pdf/generate/{id}(id=${el.id})}"><button th:if="${el.getProvider()}" class="button-30">Договор</button></form></td>
+                <td th:width="50px" class="border-0">
+                    <form th:action="@{/pdf/generate/{id}(id=${el.id})}">
+                        <button th:if="${el.getProvider()}" class="button-30">Договор</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -65,12 +86,31 @@
 </div>
 
 <script>
-    function cancelOrder() {
-        return confirm("Вы уверены, что хотите отменить заказ?")
+    const confirmCancelAlert = async function (form) {
+        const sweetConfirm = await Swal.fire({
+            icon: 'question',
+            text: 'Вы уверены что хотите отменить заказ?',
+            confirmButtonText: 'Да',
+            showDenyButton: true,
+            denyButtonText: `Нет`,
+        });
+        if (sweetConfirm.isConfirmed) {
+            form.submit();
+        }
+        return sweetConfirm.isConfirmed;
     }
-
-    function finishOrder() {
-        return confirm("Вы уверены, что хотите завершить заказ?")
+    const confirmFinishAlert = async function (form) {
+        const sweetConfirm = await Swal.fire({
+            icon: 'question',
+            text: 'Вы уверены что хотите завершить заказ?',
+            confirmButtonText: 'Да',
+            showDenyButton: true,
+            denyButtonText: `Нет`,
+        });
+        if (sweetConfirm.isConfirmed) {
+            form.submit();
+        }
+        return sweetConfirm.isConfirmed;
     }
 </script>
 

@@ -1,5 +1,6 @@
 package com.AMIR.SRM.controllers;
 
+import com.AMIR.SRM.domain.News;
 import com.AMIR.SRM.domain.Order;
 import com.AMIR.SRM.domain.PastOrder;
 import com.AMIR.SRM.repositories.OrderRepo;
@@ -49,6 +50,7 @@ public class OrdersController {
             @RequestParam Date expected_date,
             Map<String, Object> model) {
 
+        model.put("message", "Заказ успешно создан");
         Order order = new Order(product_name, description, max_price, count, expected_date);
         orderRepo.save(order);
 
@@ -88,7 +90,7 @@ public class OrdersController {
         model.addAttribute("order", order);
 
         Random random = new Random();
-        int countOfProviders = random.nextInt(5) + 1;
+        int countOfProviders = random.nextInt(15) + 1;
         Provider[] providers = new Provider[countOfProviders];
         for (int i = 0; i < countOfProviders; i++) {
             int j = random.nextInt(10);
@@ -139,6 +141,13 @@ public class OrdersController {
         return "redirect:/srm/orders/current_orders";
     }
 
+    @GetMapping("future_orders/cancelling/{order}")
+    public String cancel_future_order(@PathVariable Order order, Model model) {
+        PastOrder pastOrder = new PastOrder(order, "canceled");
+        pastOrderRepo.save(pastOrder);
+        orderRepo.delete(order);
+        return "redirect:/srm/orders/future_orders";
+    }
     @GetMapping("current_orders/cancelling/{order}")
     public String cancel_order(@PathVariable Order order, Model model) {
         PastOrder pastOrder = new PastOrder(order, "canceled");
@@ -214,7 +223,7 @@ public class OrdersController {
         return "SRM/orders/completed_orders";
     }
 
-    @GetMapping("finished_orders/repeating/{pastOrder}")
+    @GetMapping("completed_orders/repeating/{pastOrder}")
     public String orderRepeatForm(@PathVariable PastOrder pastOrder, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("title", "Повторение заказа");
@@ -253,5 +262,65 @@ public class OrdersController {
 
         model.addAttribute("pastOrder", pastOrder);
         return "SRM/orders/canceled_orders";
+    }
+
+    @GetMapping("delete_order/{pastOrder}")
+    public String deleteNew(@PathVariable PastOrder pastOrder, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("title", "Новость");
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities().toString());
+
+        String status = pastOrder.getStatus();
+
+        pastOrderRepo.delete(pastOrder);
+        if (Objects.equals(status, "canceled"))
+            return "redirect:/srm/orders/canceled_orders";
+        else
+            return "redirect:/srm/orders/completed_orders";
+    }
+
+    @GetMapping("completed_orders/analytics")
+    public String analyticOrders(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("title", "Аналитика по завершенным заказам");
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities().toString());
+
+        List<PastOrder> pastOrder = pastOrderRepo.findAll();
+        int countOfPastOrders = pastOrder.size();
+        for (int i = 0; i < pastOrder.size(); i++)
+            if (Objects.equals(pastOrder.get(i).getStatus(), "canceled")) {
+                pastOrder.remove(i);
+                i--;
+            }
+
+        int count = 0;
+        float sum = 0;
+        float realSum = 0;
+        long diffInMillies = 0;
+        int diffDays = 0;
+        PastOrder pastOrderI;
+        for (int i = 0; i < pastOrder.size(); i++) {
+                pastOrderI = pastOrder.get(i);
+                count += pastOrderI.getCount();
+                sum += pastOrderI.getCount()*pastOrderI.getMax_price();
+                realSum += pastOrderI.getCount()*pastOrderI.getReal_price();
+                diffInMillies += Math.abs(pastOrderI.getExpected_date().getTime() - pastOrderI.getReal_date().getTime());
+        }
+        float avgPrice = (float) (Math.ceil(realSum*100/count)/100);
+        float avgDiscount = (float) Math.ceil((sum - realSum)/sum*10000)/100;
+
+        diffDays = (int) TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        float percentOfCanceled = (float) Math.ceil((countOfPastOrders - pastOrder.size())*10000/countOfPastOrders)/100;
+
+        model.addAttribute("sum", sum);
+        model.addAttribute("count", count);
+        model.addAttribute("avgPrice", avgPrice);
+        model.addAttribute("avgDiscount", avgDiscount);
+        model.addAttribute("diffDays", diffDays);
+        model.addAttribute("percentOfCanceled", percentOfCanceled);
+
+        return "SRM/orders/analytics";
     }
 }

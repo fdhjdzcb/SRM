@@ -33,6 +33,17 @@ public class UserController {
         return "SRM/admin";
     }
 
+    @GetMapping("banned")
+    public String banned(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        model.addAttribute("title", "Админ-панель");
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities().toString());
+        model.addAttribute("users", userRepo.findAll());
+        return "SRM/banned";
+    }
+
     @GetMapping("{user}")
     public String userEditForm(@PathVariable User user, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -56,4 +67,30 @@ public class UserController {
         return "redirect:/srm/admin/";
     }
 
+    @GetMapping("ban/{user}")
+    public String banUser(@PathVariable User user, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("title", "Забан");
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("roles", Role.values());
+        model.addAttribute("role", authentication.getAuthorities().toString());
+        model.addAttribute("user", user);
+
+        user.setActive(false);
+        userRepo.save(user);
+        return "redirect:/srm/admin/";
+    }
+
+    @GetMapping("unban/{user}")
+    public String unbanUser(@PathVariable User user, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("title", "разбан");
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("roles", Role.values());
+        model.addAttribute("role", authentication.getAuthorities().toString());
+        model.addAttribute("user", user);
+        user.setActive(true);
+        userRepo.save(user);
+        return "redirect:/srm/admin/";
+    }
 }

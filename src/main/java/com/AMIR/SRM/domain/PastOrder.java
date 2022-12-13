@@ -50,10 +50,12 @@ public class PastOrder {
         this.count = order.getCount();
         this.expected_date = order.getExpected_date();
         this.real_price = order.getReal_price();
-        this.real_date = order.getReal_date();
+        if (order.getReal_date() != null)
+            this.real_date = order.getReal_date();
         this.status = status;
         this.author = order.getAuthor();
-        this.provider = order.getProvider();
+        if (order.getProvider() != null)
+            this.provider = order.getProvider();
     }
 
     public long getId() {

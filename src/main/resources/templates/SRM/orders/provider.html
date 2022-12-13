@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
     <link rel="stylesheet" href="" th:href="@{/css/Table.css}"/>
+    <script type="text/javascript" th:src="@{/js/tableSearch.js}"></script>
+    <script type="text/javascript" th:src="@{/js/sortTable.js}"></script>
     <link rel="stylesheet" href="" th:href="@{/css/Buttons.css}"/>
     <link rel="stylesheet" href="" th:href="@{/css/Sidebar.css}"/>
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
@@ -18,13 +20,14 @@
 <div th:insert="blocks/SRMmenu :: srmmenu"></div>
     <div class="container text-center p-2 w-50">
         <h1>Выбор поставщика</h1>
-        <table class="table">
+        <input class="form-control mb-3 w-25" type="text" placeholder="Поиск" id="search-text" onkeyup="tableSearch()">
+        <table class="table" id="info-table">
             <tbody>
             <tr>
-                <th>Название</th>
-                <th>Цена</th>
-                <th>Количество</th>
-                <th>Дата</th>
+                <th onclick="sortTable(0, 's')">Название</th>
+                <th onclick="sortTable(1, 'n')">Цена</th>
+                <th onclick="sortTable(2, 'n')">Количество</th>
+                <th onclick="sortTable(3, 's')">Дата</th>
             </tr>
             <tr th:each="el : ${provider}">
                 <td th:text="${el.getName()}"/>
