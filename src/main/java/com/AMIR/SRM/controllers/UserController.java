@@ -33,6 +33,17 @@ public class UserController {
         return "SRM/admin";
     }
 
+    @GetMapping("banned")
+    public String banned(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        model.addAttribute("title", "Админ-панель");
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("role", authentication.getAuthorities().toString());
+        model.addAttribute("users", userRepo.findAll());
+        return "SRM/banned";
+    }
+
     @GetMapping("{user}")
     public String userEditForm(@PathVariable User user, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

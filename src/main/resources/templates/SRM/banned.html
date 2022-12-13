@@ -19,7 +19,7 @@
 <body>
 <div th:insert="blocks/SRMmenu :: srmmenu"></div>
 <div class="text-center p-2">
-    <h1>Админ-панель</h1>
+    <h1>Заблокированные</h1>
     <div class="container">
         <div class="row mb-3">
             <div class="col-9 my-auto">
@@ -27,9 +27,9 @@
                        type="text">
             </div>
             <div class="col-3 my-auto mx-auto">
-                <form th:action="@{/srm/admin/banned}">
+                <form th:action="@{/srm/admin}">
                     <button class="analytics" style="font-size: 17px">
-                        Показать заблокированных
+                        Показать активных
                     </button>
                 </form>
             </div>
@@ -45,7 +45,7 @@
                         <th hidden>Статус</th>
                         <th></th>
                     </tr>
-                    <tr th:each="el : ${users}" th:if="${(el.username != username) and (el.isActive())}">
+                    <tr th:each="el : ${users}" th:if="${(el.username != username) and (el.activationCode == null) and (!el.isActive())}">
                         <td th:text="${el.username}"/>
                         <td th:text="${el.email}"/>
                         <td th:text="${el.getRoles().iterator().next().toString()}"/>
