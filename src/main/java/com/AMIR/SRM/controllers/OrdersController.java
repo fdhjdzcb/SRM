@@ -1,6 +1,5 @@
 package com.AMIR.SRM.controllers;
 
-import com.AMIR.SRM.domain.News;
 import com.AMIR.SRM.domain.Order;
 import com.AMIR.SRM.domain.PastOrder;
 import com.AMIR.SRM.repositories.OrderRepo;
@@ -15,12 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.AMIR.SRM.domain.Provider;
 
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 @Controller
 @RequestMapping("srm/orders/")
@@ -37,7 +33,7 @@ public class OrdersController {
         model.addAttribute("title", "Создание заказа");
         model.addAttribute("username", authentication.getName());
         model.addAttribute("role", authentication.getAuthorities().toString());
-        return "SRM/orders/new_order";
+        return "SRM/orders/curr_orders/new_order";
     }
 
     @DateTimeFormat(pattern = "dd-mm-yyyy")
@@ -54,7 +50,7 @@ public class OrdersController {
         Order order = new Order(product_name, description, max_price, count, expected_date);
         orderRepo.save(order);
 
-        return "SRM/orders/new_order";
+        return "SRM/orders/curr_orders/new_order";
     }
 
     @GetMapping("current_orders")
@@ -77,7 +73,7 @@ public class OrdersController {
             }
         }
         model.addAttribute("order", order);
-        return "SRM/orders/current_orders";
+        return "SRM/orders/curr_orders/current_orders";
     }
 
     @GetMapping("current_orders/{order}")
@@ -116,7 +112,7 @@ public class OrdersController {
         }
         model.addAttribute("provider", providers);
 
-        return "SRM/orders/provider";
+        return "SRM/orders/curr_orders/provider";
     }
 
     @PostMapping("/current_orders")
@@ -175,7 +171,7 @@ public class OrdersController {
         List<Order> order = orderRepo.findAll();
 
         model.addAttribute("order", order);
-        return "SRM/orders/future_orders";
+        return "SRM/orders/curr_orders/future_orders";
     }
 
     @GetMapping("future_orders/{order}")
@@ -186,7 +182,7 @@ public class OrdersController {
         model.addAttribute("role", authentication.getAuthorities().toString());
         model.addAttribute("order", order);
 
-        return "SRM/orders/approve_order";
+        return "SRM/orders/curr_orders/approve_order";
     }
 
     @PostMapping("/future_orders")
@@ -220,7 +216,7 @@ public class OrdersController {
         List<PastOrder> pastOrder = pastOrderRepo.findAll();
 
         model.addAttribute("pastOrder", pastOrder);
-        return "SRM/orders/completed_orders";
+        return "SRM/orders/past_orders/completed_orders";
     }
 
     @GetMapping("completed_orders/repeating/{pastOrder}")
@@ -261,7 +257,7 @@ public class OrdersController {
         List<PastOrder> pastOrder = pastOrderRepo.findAll();
 
         model.addAttribute("pastOrder", pastOrder);
-        return "SRM/orders/canceled_orders";
+        return "SRM/orders/past_orders/canceled_orders";
     }
 
     @GetMapping("delete_order/{pastOrder}")
@@ -321,6 +317,6 @@ public class OrdersController {
         model.addAttribute("diffDays", diffDays);
         model.addAttribute("percentOfCanceled", percentOfCanceled);
 
-        return "SRM/orders/analytics";
+        return "SRM/orders/past_orders/analytics";
     }
 }
