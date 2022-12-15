@@ -64,7 +64,7 @@ create table past_orders
 create table news
 (
     author    varchar(30),
-    text      varchar(300),
+    text      varchar(1500),
     pub_date  date,
     title     varchar(50),
     id        integer,
