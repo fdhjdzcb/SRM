@@ -71,8 +71,10 @@ public class NewsController {
         List<News> news = newsRepo.findAll();
         Collections.sort(news, new Comparator<News>() {
             public int compare(News c1, News c2) {
-                if (c1.getId() > c2.getId()) return -1;
-                if (c1.getId() < c2.getId()) return 1;
+                if (c1.getPub_date().after(c2.getPub_date())) return -1;
+                if (c1.getPub_date().before(c2.getPub_date())) return 1;
+                if (c1.getId() > (c2.getId())) return -1;
+                if (c1.getId() < (c2.getId())) return -1;
                 return 0;
             }});
         model.addAttribute("news", news);
