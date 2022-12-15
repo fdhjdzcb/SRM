@@ -59,7 +59,7 @@ public class NewsController {
         }
         newsRepo.save(news);
 
-        return "SRM/news/create_news";
+        return "redirect:/srm/create_news";
     }
 
     @GetMapping("news_list")
