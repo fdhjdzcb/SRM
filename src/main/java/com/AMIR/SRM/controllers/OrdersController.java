@@ -50,7 +50,7 @@ public class OrdersController {
         Order order = new Order(product_name, description, max_price, count, expected_date);
         orderRepo.save(order);
 
-        return "redirect:/srm/orders/new_order";
+        return "redirect:/srm/orders/new_order?created";
     }
 
     @GetMapping("current_orders")

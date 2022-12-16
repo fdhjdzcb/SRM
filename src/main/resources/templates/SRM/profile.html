@@ -10,59 +10,72 @@
     <link rel="stylesheet" href="" th:href="@{/css/Sidebar.css}"/>
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/sideBar.js}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <div th:insert="blocks/SRMmenu :: srmmenu"></div>
 <div class="text-center p-2">
-        <h1>Профиль</h1>
-        <div th:text="${message}" class="form-group"/>
-        <form class="container needs-validation p-8 w-25" action="/srm/profile" method="post">
-            <div class="row g-3">
-                <div class="col-12">
-                    <label for="username" class="form-label">Логин</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Логин"
-                           th:value="${user.username}" minlength="6" maxlength="50"
-                           required="">
-                </div>
-
-                <div class="col-12">
-                    <label for="email" class="form-label">Эл. почта</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Почта"
-                           th:value="${user.email}" maxlength="50"
-                           required="">
-                </div>
-
-                <div class="col-12">
-                    <label for="name" class="form-label">Имя</label>
-                    <input type="text" minlength="3" maxlength="20" class="form-control" id="name" name="name" placeholder="Имя"
-                           th:value="${user.name}"
-                           required="">
-                </div>
-
-                <div class="col-12">
-                    <label for="surname" class="form-label">Фамилия</label>
-                    <input type="text" minlength="3" maxlength="20" class="form-control" id="surname" name="surname" placeholder="Фамилия"
-                           th:value="${user.surname}"
-                           required="">
-                </div>
-
-                <div class="col-12">
-                    Роль <p th:text="${role}"></p>
-                </div>
-
-                <input type="hidden" th:value="${user.id}" name="userId">
-                <input type="hidden" th:value="${_csrf.token}" name="_csrf">
-
-                <hr class="my-4">
-
-                <button class="create" type="submit" onclick="return changeProfile()">Сохранить</button>
+    <h1>Профиль</h1>
+    <div th:text="${message}" class="form-group"/>
+    <form class="container needs-validation p-8 w-25" action="/srm/profile" method="post" onsubmit="confirmDeleteAlert(this); return false">
+        <div class="row g-3">
+            <div class="col-12">
+                <label for="username" class="form-label">Логин</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Логин"
+                       th:value="${user.username}" minlength="6" maxlength="50"
+                       required="">
             </div>
-        </form>
-    </div>
+
+            <div class="col-12">
+                <label for="email" class="form-label">Эл. почта</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Почта"
+                       th:value="${user.email}" maxlength="50"
+                       required="">
+            </div>
+
+            <div class="col-12">
+                <label for="name" class="form-label">Имя</label>
+                <input type="text" minlength="3" maxlength="20" class="form-control" id="name" name="name"
+                       placeholder="Имя"
+                       th:value="${user.name}"
+                       required="">
+            </div>
+
+            <div class="col-12">
+                <label for="surname" class="form-label">Фамилия</label>
+                <input type="text" minlength="3" maxlength="20" class="form-control" id="surname" name="surname"
+                       placeholder="Фамилия"
+                       th:value="${user.surname}"
+                       required="">
+            </div>
+
+            <div class="col-12">
+                Роль <p th:text="${role}"></p>
+            </div>
+
+            <input type="hidden" th:value="${user.id}" name="userId">
+            <input type="hidden" th:value="${_csrf.token}" name="_csrf">
+
+            <hr class="my-4">
+
+            <button class="create" type="submit">Сохранить</button>
+        </div>
+    </form>
+</div>
 
 <script>
-    function changeProfile() {
-        return confirm("Вы уверены, что хотите изменить данные? Потребуется повторный вход в аккаунт.")
+    const confirmDeleteAlert = async function (form) {
+        const sweetConfirm = await Swal.fire({
+            icon: 'question',
+            text: 'Вы уверены что хотите изменить профиль? Потребуется повторный вход в аккаунт!',
+            confirmButtonText: 'Да',
+            showDenyButton: true,
+            denyButtonText: `Нет`,
+        });
+        if (sweetConfirm.isConfirmed) {
+            form.submit();
+        }
+        return sweetConfirm.isConfirmed;
     }
 </script>
 
