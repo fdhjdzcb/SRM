@@ -16,7 +16,42 @@
 <div th:insert="blocks/SRMmenu :: srmmenu"></div>
 <div class="text-center p-2">
     <h1>Профиль</h1>
-    <div th:text="${message}" class="form-group"/>
+    <div th:if="${param.usedlogin}">
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Введенный логин уже занят',
+                timer: 5000,
+                timerProgressBar: true,
+            }).then(function() {
+                window.location = "srm/profile/";
+            });
+        </script>
+    </div>
+    <div th:if="${param.usedmail}">
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Введенная почта уже занята',
+                timer: 5000,
+                timerProgressBar: true,
+            }).then(function() {
+                window.location = "srm/profile/";
+            });
+        </script>
+    </div>
+    <div th:if="${param.nochanges}">
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Изменений нет',
+                timer: 5000,
+                timerProgressBar: true,
+            }).then(function() {
+                window.location = "srm/profile/";
+            });
+        </script>
+    </div>
     <form class="container needs-validation p-8 w-25" action="/srm/profile" method="post" onsubmit="confirmDeleteAlert(this); return false">
         <div class="row g-3">
             <div class="col-12">

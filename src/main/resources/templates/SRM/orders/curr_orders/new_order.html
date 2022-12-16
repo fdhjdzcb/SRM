@@ -21,7 +21,7 @@
     <h1 class="text-center">Создание запроса</h1>
 
     <form class="container needs-validation p-8" style="width: 35%" th:action="@{/srm/orders/new_order}" method="post">
-        <strong th:if="${param.created}">
+        <div th:if="${param.created}">
             <script>
                     Swal.fire({
                         icon: 'success',
@@ -32,7 +32,7 @@
                         window.location = "srm/orders/new_order";
                     });
             </script>
-        </strong>
+        </div>
         <div class="row g-3">
             <div class="col-12">
                 <label for="product_name" class="form-label">Название товара</label>
