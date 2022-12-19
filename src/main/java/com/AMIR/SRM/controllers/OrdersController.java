@@ -169,6 +169,16 @@ public class OrdersController {
         model.addAttribute("role", authentication.getAuthorities().toString());
 
         List<Order> order = orderRepo.findAll();
+        Date currentDate = new Date(System.currentTimeMillis() - 86400000);
+        for (int i = 0; i < order.size(); i++)
+        {
+            if (order.get(i).getExpected_date().before(currentDate) && (order.get(i).getProvider() == null))
+            {
+                PastOrder pastOrder = new PastOrder(order.get(i), "canceled");
+                pastOrderRepo.save(pastOrder);
+                orderRepo.delete(order.get(i));
+            }
+        }
 
         model.addAttribute("order", order);
         return "SRM/orders/curr_orders/future_orders";
