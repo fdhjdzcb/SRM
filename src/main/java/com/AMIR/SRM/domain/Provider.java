@@ -1,13 +1,6 @@
 package com.AMIR.SRM.domain;
 
-import com.AMIR.SRM.domain.Order;
-
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Random;
 
 public class Provider {
     private String name;

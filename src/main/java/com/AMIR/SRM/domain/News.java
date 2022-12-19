@@ -1,6 +1,5 @@
 package com.AMIR.SRM.domain;
 
-import org.hibernate.annotations.Type;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
