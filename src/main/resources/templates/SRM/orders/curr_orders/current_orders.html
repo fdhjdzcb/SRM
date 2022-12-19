@@ -46,7 +46,7 @@
 
                 <td th:text="${el.max_price}"/>
                 <td th:if="${el.real_price}" th:text="${el.real_price}"/>
-                <td th:if="not ${el.real_price}" th:text="-----"/>
+                <td th:if="not ${el.real_price}" th:text="0"/>
 
                 <td id="expected_date" class="color_date" th:text="${el.expected_date}"/>
                 <td th:if="${el.real_date}" th:text="${el.real_date}"/>

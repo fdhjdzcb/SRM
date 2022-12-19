@@ -11,11 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 @Controller
 @RequestMapping("srm/admin")
 @PreAuthorize("hasAuthority('ADMIN')")
@@ -30,7 +25,7 @@ public class UserController {
         model.addAttribute("username", authentication.getName());
         model.addAttribute("role", authentication.getAuthorities().toString());
         model.addAttribute("users", userRepo.findAll());
-        return "SRM/admin";
+        return "SRM/admin/admin";
     }
 
     @GetMapping("banned")
@@ -41,7 +36,7 @@ public class UserController {
         model.addAttribute("username", authentication.getName());
         model.addAttribute("role", authentication.getAuthorities().toString());
         model.addAttribute("users", userRepo.findAll());
-        return "SRM/banned";
+        return "SRM/admin/banned";
     }
 
     @GetMapping("{user}")
@@ -52,7 +47,7 @@ public class UserController {
         model.addAttribute("roles", Role.values());
         model.addAttribute("role", authentication.getAuthorities().toString());
         model.addAttribute("user", user);
-        return "SRM/userEdit";
+        return "SRM/admin/userEdit";
     }
 
     @PostMapping()

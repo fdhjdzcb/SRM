@@ -12,14 +12,27 @@
     <link rel="stylesheet" href="" th:href="@{/css/Buttons.css}"/>
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/sideBar.js}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+
 <div th:insert="blocks/SRMmenu :: srmmenu"></div>
 <div class="text-center p-2">
     <h1 class="text-center">Создание запроса</h1>
 
     <form class="container needs-validation p-8" style="width: 35%" th:action="@{/srm/orders/new_order}" method="post">
-        <strong th:text="${message}"></strong>
+        <div th:if="${param.created}">
+            <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Заказ успешно создан',
+                        timer: 5000,
+                        timerProgressBar: true,
+                    }).then(function() {
+                        window.location = "srm/orders/new_order";
+                    });
+            </script>
+        </div>
         <div class="row g-3">
             <div class="col-12">
                 <label for="product_name" class="form-label">Название товара</label>

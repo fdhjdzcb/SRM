@@ -1,6 +1,6 @@
 package com.AMIR.SRM.controllers;
 
-import com.AMIR.SRM.domain.Role;
+
 import com.AMIR.SRM.domain.User;
 import com.AMIR.SRM.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +65,13 @@ public class MainController {
     @Autowired
     private UserRepo userRepo;
 
+    @GetMapping("srm/profile")
+    public String redirectToProfile(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return "redirect:/srm/profile/" + currentPrincipalName;
+    }
+
     @GetMapping("srm/profile/{username}")
     public String profile(@PathVariable String username, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -87,21 +94,16 @@ public class MainController {
             @RequestParam("userId") User user,
             Map<String, Object> model
     ) {
-        User userFromDb = userRepo.findByUsername(username);
-        User mailFromDb = userRepo.findByEmail(email);
+        User userFromDb = userRepo.findByUsername(username); //ищет занят ли введеный логин
+        User mailFromDb = userRepo.findByEmail(email); //ищет занята ли введеная почта
         if ((userFromDb != null) && (!Objects.equals(username, user.getUsername()))) {
-            System.out.println("Данный логин уже занят!");
-            model.put("message", "Данный логин уже занят!");
-            return "redirect:/srm/profile/" + user.getUsername();
+            return "redirect:/srm/profile/" + user.getUsername() + "?usedlogin";
         } else if ((mailFromDb != null) && (!Objects.equals(email, user.getEmail()))) {
-            System.out.println("Данная почта уже занята!");
-            model.put("message", "Данная почта уже занята!");
-            return "redirect:/srm/profile/" + user.getUsername();
+            return "redirect:/srm/profile/" + user.getUsername() + "?usedmail";
         }
-        else if ((Objects.equals(username, user.getUsername())) && (Objects.equals(email, user.getEmail()))){
-            return "redirect:/srm/profile/" + user.getUsername();
+        else if (Objects.equals(username, user.getUsername()) && Objects.equals(email, user.getEmail()) && Objects.equals(name, user.getName()) && Objects.equals(surname, user.getUsername())){
+            return "redirect:/srm/profile/" + user.getUsername() + "?nochanges";
         }
-        System.out.println("Все ок");
         user.setUsername(username);
         user.setEmail(email);
         user.setName(name);
