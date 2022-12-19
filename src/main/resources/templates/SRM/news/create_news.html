@@ -11,12 +11,25 @@
     <link rel="stylesheet" href="" th:href="@{/css/Sidebar.css}"/>
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/sideBar.js}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <div th:insert="blocks/SRMmenu :: srmmenu"></div>
 <div class="text-center p-2"><h1>Опубликовать новость</h1></div>
 
 <form class="container needs-validation p-8" style="width: 35%" th:action="@{/srm/create_news}" method="post" enctype="multipart/form-data">
+    <div th:if="${param.created}">
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Новость успешно опубликована',
+                timer: 5000,
+                timerProgressBar: true,
+            }).then(function() {
+                window.location = "srm/create_news";
+            });
+        </script>
+    </div>
     <div class="row g-3">
         <div class="col-12">
             <label for="new_title" class="form-label">Заголовок</label>

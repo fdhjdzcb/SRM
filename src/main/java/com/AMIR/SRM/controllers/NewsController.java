@@ -1,6 +1,7 @@
 package com.AMIR.SRM.controllers;
 
 import com.AMIR.SRM.domain.News;
+import com.AMIR.SRM.domain.Order;
 import com.AMIR.SRM.repositories.NewsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.*;
 
 @Controller
@@ -35,7 +37,6 @@ public class NewsController {
 
         return "SRM/news/create_news";
     }
-
     @PostMapping("create_news")
     public String add(
             @RequestParam String new_title,
@@ -59,7 +60,7 @@ public class NewsController {
         }
         newsRepo.save(news);
 
-        return "redirect:/srm/create_news";
+        return "redirect:/srm/create_news?created";
     }
 
     @GetMapping("news_list")

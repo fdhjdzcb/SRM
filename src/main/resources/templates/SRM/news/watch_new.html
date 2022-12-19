@@ -25,7 +25,7 @@
     <p th:text="${news.text}" style="text-align: justify; text-indent: 40px"></p>
     Дата публикации: <p th:text="${news.pub_date}"></p>
     Автор: <p th:text="${news.author}"></p>
-    <div class="row">
+    <div th:if="${role != '[USER]'}" class="row">
         <div style="margin-bottom: 5px"><form th:action="@{/srm/news_list/redact_news/{id}(id=${news.id})}">
             <button class="create" style="width: 170px">
                 Изменить новость
