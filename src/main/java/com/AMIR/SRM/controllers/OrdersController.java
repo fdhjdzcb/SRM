@@ -62,7 +62,7 @@ public class OrdersController {
 
         List<Order> order = orderRepo.findAll();
 
-        Date currentDate = new Date(System.currentTimeMillis());
+        Date currentDate = new Date(System.currentTimeMillis() - 86400000);
         for (int i = 0; i < order.size(); i++)
         {
             if (order.get(i).getExpected_date().before(currentDate) && (order.get(i).getProvider() == null))
@@ -86,19 +86,19 @@ public class OrdersController {
         model.addAttribute("order", order);
 
         Random random = new Random();
-        int countOfProviders = random.nextInt(15) + 1;
+        int countOfProviders = random.nextInt(11) + 5;
         Provider[] providers = new Provider[countOfProviders];
         for (int i = 0; i < countOfProviders; i++) {
             int j = random.nextInt(10);
-            providers[i] = new Provider();
-            providers[i].setName("Поставщик " + (i + 1));
+            providers[i] = new Provider();  //создание
+            providers[i].setName("Поставщик " + (i + 1)); //nomer
             providers[i].setNew_price(Math.ceil((random.nextDouble(10.0) + 91) * order.getMax_price()) / 100);
             providers[i].setNew_date(order.getExpected_date());
             Calendar cal = Calendar.getInstance();
             cal.setTime(order.getExpected_date());
             Date currentDate = new Date(System.currentTimeMillis());
             long diffDate = (order.getExpected_date().getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
-            cal.add(Calendar.DATE, -random.nextInt((int)diffDate));
+            cal.add(Calendar.DATE, -random.nextInt((int) diffDate));
             providers[i].setNew_date(new java.sql.Date(cal.getTimeInMillis()));
 
             if (j < 5) {
