@@ -18,6 +18,9 @@
 Домашняя страница
 ![image](https://user-images.githubusercontent.com/101801358/221837273-69d94385-daed-4ecb-928c-7816ad2506c0.png)
 
+Просмотр новостей
+![image](https://user-images.githubusercontent.com/101801358/221838074-8f45ed33-e768-408f-b01c-4dcdff5e0b29.png)
+
 Просмотр заказов
 ![image](https://user-images.githubusercontent.com/101801358/221837342-e9dd75bb-ea6b-4a86-ac9a-1c82968b2017.png)
 
@@ -29,4 +32,10 @@
 
 Просмотр/Редактирование профиля
 ![image](https://user-images.githubusercontent.com/101801358/221837588-7165eb3b-f57e-4ba0-9aa2-73fc9bedfbd7.png)
+
+Админ-панель (Доступ только для пользователей с ролью ADMIN)
+Позволяет изменять роли пользователей системы
+![image](https://user-images.githubusercontent.com/101801358/221838245-7801074d-8d38-48a3-82a0-ffc2636df2ae.png)
+
+
 
